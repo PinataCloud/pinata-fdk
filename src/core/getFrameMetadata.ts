@@ -1,19 +1,19 @@
 import { FrameHTMLType, FrameButtonMetadata} from './types';
 import dotenv from 'dotenv';
 dotenv.config();
+
 export const uploadByURL = async (url: string) => {
   try {
     const urlStream = await fetch(url);
     const arrayBuffer = await urlStream.arrayBuffer();
     const blob = new Blob([arrayBuffer]);
-    const JWT = process.env['PINATA_JWT'];
 
     const data = new FormData();
     data.append("file", blob);
     const upload = await fetch('https://api.pinata.cloud/pinning/pinFileToIPFS', {
       method: 'POST',
       headers: {
-        'Authorization': `Bearer ${JWT}`
+        'Authorization': `Bearer ${ process.env['PINATA_JWT']}`
       },
       body: data
     });
@@ -59,7 +59,7 @@ export async function getFrameMetadata ({
         metadata['fc:frame:image'] = `https://${process.env['PINATA_GATEWAY']}/ipfs/${res.IpfsHash}`;
       }
       else{
-        throw new Error("Image failed to upload to IPFS.");
+        throw new Error("Error uploading image to IPFS");
       }
    }
   else if (image && !image.ipfs && !cid) {
