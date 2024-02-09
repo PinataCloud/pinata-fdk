@@ -1,8 +1,6 @@
-import { FrameHTMLType, FrameButtonMetadata} from './types';
-import dotenv from 'dotenv';
-dotenv.config();
+import { FrameHTMLType, FrameButtonMetadata, PinataConfig} from './types';
 
-export const uploadByURL = async (url: string) => {
+export const uploadByURL = async (url: string, config: PinataConfig) => {
   try {
     const urlStream = await fetch(url);
     const arrayBuffer = await urlStream.arrayBuffer();
@@ -13,7 +11,7 @@ export const uploadByURL = async (url: string) => {
     const upload = await fetch('https://api.pinata.cloud/pinning/pinFileToIPFS', {
       method: 'POST',
       headers: {
-        'Authorization': `Bearer ${ process.env['PINATA_JWT']}`
+        'Authorization': `Bearer ${config.pinata_jwt}`,
       },
       body: data
     });
@@ -44,19 +42,19 @@ export async function getFrameMetadata ({
   input,
   post_url,
   refresh_period,
-}: FrameHTMLType): Promise<string> {
+}: FrameHTMLType, config?: PinataConfig): Promise<string> {
   const metadata: Record<string, string> = {
     'fc:frame': 'vNext',
   };
-  if(cid){
-    metadata["og:image"] = `https://${process.env['PINATA_GATEWAY']}/ipfs/${cid}`;
-    metadata['fc:frame:image'] = `https://${process.env['PINATA_GATEWAY']}/ipfs/${cid}`;
+  if(cid && config){
+    metadata["og:image"] = `https://${config.pinata_gateway}/ipfs/${cid}`;
+    metadata['fc:frame:image'] = `https://${config.pinata_gateway}/ipfs/${cid}`;
   }
-  else if (image && image.ipfs) {
-     const res = await uploadByURL(image.url)
-      if(res && res.IpfsHash){
-        metadata["og:image"] = `https://${process.env['PINATA_GATEWAY']}/ipfs/${res.IpfsHash}`;
-        metadata['fc:frame:image'] = `https://${process.env['PINATA_GATEWAY']}/ipfs/${res.IpfsHash}`;
+  else if (image && image.ipfs && config && config.pinata_jwt) {
+     const res = await uploadByURL(image.url, config);
+      if(res && res.IpfsHash && config.pinata_gateway){
+        metadata["og:image"] = `https://${config.pinata_gateway}/ipfs/${res.IpfsHash}`;
+        metadata['fc:frame:image'] = `https://${config.pinata_gateway}/ipfs/${res.IpfsHash}`;
       }
       else{
         throw new Error("Error uploading image to IPFS");

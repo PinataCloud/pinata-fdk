@@ -15,6 +15,11 @@ export type FrameInputMetadata = {
     text: string;
 };
 
+export type PinataConfig = {
+  pinata_jwt: string;
+  pinata_gateway: string;
+}
+
 export type FrameHTMLType = {
   buttons?: [FrameButtonMetadata, ...FrameButtonMetadata[]];
   image?: {url: string, ipfs?: boolean};
