@@ -15,7 +15,7 @@ yarn add pinata-fdk
 
 ### Initialization
 
-If you want to leverage image pinning capabilities, you must enter you Pinata JWT and a Pinata gateway during intialization. 
+If you want to leverage IPFS pinning capabilities, you must enter your Pinata JWT and a Pinata gateway during intialization. 
 ```javascript
 const PinataFDK = require('pinata-fdk');
 const fdk = new PinataFDK({
