@@ -10,7 +10,7 @@ describe('getFrameMetadata function', () => {
                 { label: 'Button 3', action: "mint"},
                 { label: 'Button 4', action: "post_redirect"},
             ],
-            image: "https://gold-mere-anglerfish-964.mypinata.cloud/ipfs/QmTa2TnVpVrkQp8yjjF7ZYTtzYPwj2dgE6HAGxHYqzk6Da/cc.jpg",
+            image: {url: "https://gold-mere-anglerfish-964.mypinata.cloud/ipfs/QmTa2TnVpVrkQp8yjjF7ZYTtzYPwj2dgE6HAGxHYqzk6Da/cc.jpg"}
         });
         const expectedMetadata = 
             `<meta name="fc:frame" content="vNext">\n` +
@@ -30,7 +30,7 @@ describe('getFrameMetadata function', () => {
     
     it('generates metadata for a Farcaster Frame with aspect ratio and buttons', () => {
         const frameMetadata = getFrameMetadata({
-            image: "https://example.com/image.jpg",
+            image: {url: "https://example.com/image.jpg"},
             post_url: 'https://example.com/post',
             aspectRatio: "1:1",
             buttons: [

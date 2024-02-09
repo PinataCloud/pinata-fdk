@@ -17,14 +17,14 @@ export type FrameInputMetadata = {
 
 export type FrameHTMLType = {
   buttons?: [FrameButtonMetadata, ...FrameButtonMetadata[]];
-  image?: string;
+  image?: {url: string};
   cid?: string;
   input?: FrameInputMetadata;
   post_url: string;
   refresh_period?: number;
   aspectRatio?: "1.91:1" | "1:1" 
 } & (
-  { image: string } | { cid: string }
+  { image: {url: string}} | { cid: string }
 );
 
 export type FrameButtonMetadata = {

@@ -63,9 +63,10 @@ export function getFrameMetadata ({
   //       throw new Error("Image failed to upload to IPFS.");
   //     }
   // }
+  //TODO add support for uploading urls to IPFS
   else if (image && !cid) {
-    metadata["og:image"] = image;
-    metadata['fc:frame:image'] = image;
+    metadata["og:image"] = image.url;
+    metadata['fc:frame:image'] = image.url;
   } 
   if(aspectRatio){
     metadata['fc:frame:aspectRatio'] = aspectRatio;
