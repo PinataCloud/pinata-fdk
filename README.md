@@ -3,9 +3,17 @@
 
 An SDK to easily create Farcaster Frames and pin images to IPFS using Pinata.
 
-## Usage/Examples
-
 ## Getting Started
+
+### Installation
+```javascript
+npm i pinata-fdk
+```
+```javascript
+yarn add pinata-fdk
+```
+
+### Initialization
 
 If you want to leverage image pinning capabilities, you must enter you Pinata JWT and a Pinata gateway during intialization. 
 ```javascript
@@ -22,9 +30,39 @@ const PinataFDK = require('pinata-fdk');
 const fdk = new PinataFDK();
 ```
 
-## getFrameMetadata()
+## Usage/Examples
+
+### getFrameMetadata()
 You can use this funcion to easily create the metadata needed for your Farcaster Frame. 
 The only required input is `cid` or `image`
+
+### Input Types
+```javascript
+type FrameHTMLType = {
+  buttons?: [FrameButtonMetadata, ...FrameButtonMetadata[]];
+  image?: {url: string, ipfs?: boolean};
+  cid?: string;
+  input?: FrameInputMetadata;
+  post_url?: string;
+  refresh_period?: number;
+  aspectRatio?: "1.91:1" | "1:1" 
+} & (
+  { image: {url: string, ipfs?: boolean}} | { cid: string }
+);
+```
+```javascript 
+type FrameButtonMetadata = {
+  label: string;
+  action?: "post" | "post_redirect" | "mint" | "link";
+  target?: string;
+}
+```
+```javascript 
+type FrameInputMetadata = {
+    text: string;
+};
+
+```
 
 ### Example Input
 ```javascript
@@ -93,3 +131,40 @@ const frameMetadata = await fdk.getFrameMetadata({
 //Must insert Pinata credentials when intializing SDK.    
 ```
 
+### validateFrameMessage()
+
+Returns a Promise that indicates wether a message signature is valid, by querying Pinata's Farcaster hub. 
+
+```javascript 
+const body = await request.json();
+const { isValid, message } = await fdk.validateFrameMessage(body);
+
+```
+
+### Pin Files from CLI
+### npx pin
+
+Pin files directly from your `src` folder using the `pinata-fdk`  **npx pin** command.
+
+Create a `pins` folder located under your `src` folder
+
+```jsx
+src
+-pins/
+```
+
+Add any images you want uploaded to IPFS! 
+
+```jsx
+src
+-pins/
+--image.png
+```
+
+Run the command:
+
+```jsx
+npx pin <YOUR_PINATA_JWT>
+```
+
+Check your `src/pins` folder for a  `pins_list.json` file. Here you can easily access your CID to input into `getFrameMetadata().`
