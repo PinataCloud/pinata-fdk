@@ -1,18 +1,19 @@
 {
   "name": "pinata-fdk",
-  "version": "1.0.4",
+  "version": "1.0.5",
   "description": "pinata cloud sdk for farcaster frame development",
   "main": "./dist/index.js",
   "module": "./dist/index.mjs",
   "types": "./dist/index.d.ts",
   "bin": {
-    "pin": "./dist/bin.js"
+    "pin": "dist/pin.js"
   },
   "files": [
     "dist"
   ],
   "scripts": {
     "build": "tsup",
+    "postbuild": "cp src/pin.js dist/pin.js",
     "test": "jest"
   },
   "keywords": [
@@ -36,8 +37,8 @@
   },
   "dependencies": {
     "@farcaster/core": "^0.13.8",
-    "@pinata/sdk": "^2.1.0",
     "app-root-path": "^3.1.0",
+    "axios": "^1.6.7",
     "form-data": "^4.0.0",
     "path": "^0.12.7"
   }
