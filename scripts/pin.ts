@@ -13,7 +13,8 @@ const fileName = 'pin_list.json';
 const filePath = path.join(pinFolder, fileName);
 console.log("Uploading files from:", pinFolder);
 if(!process.env.PINATA_JWT) {
-    return console.log("Please set your PINATA_JWT in a .env file");
+    console.log("Please set your PINATA_JWT in a .env file");
+    throw new Error("PINATA_JWT not set");
 }
 
 const pinata = new pinataSDK({ pinataJWTKey: process.env.PINATA_JWT });
@@ -30,22 +31,22 @@ const pinList = JSON.parse(fileContents);
 const pins = pinList.pins;
 
 // Read the contents of the pinFolder
-fs.readdir(pinFolder, (err, files) => {
+fs.readdir(pinFolder, (err: any, files:any) => {
     if (err) {
         console.error("Error reading directory:", err);
         return;
     }
 
     // Filter out non-image files
-    const imageFiles = files.filter(file => {
+    const imageFiles = files.filter((file: any) => {
         const extension = path.extname(file).toLowerCase();
         return ['.jpg', '.jpeg', '.png', '.gif'].includes(extension);
     });
 
     // Process each image file
-    imageFiles.forEach(imageFile => {
+    imageFiles.forEach((imageFile: any) => {
         // Check if the image file is already on the list
-        const existingPin = pins.find(pin => pin.fileName === imageFile);
+        const existingPin = pins.find((pin: any) => pin.fileName === imageFile);
         if (!existingPin) {
             // Image file not on the list, add it to the list and upload
             const imageStream = fs.createReadStream(path.join(pinFolder, imageFile));
@@ -59,7 +60,7 @@ fs.readdir(pinFolder, (err, files) => {
             }
             try {
                 console.log("Uploading:", imageFile);
-                pinata.pinFileToIPFS(imageStream, options).then((result) => {
+                pinata.pinFileToIPFS(imageStream, options).then((result: any) => {
                 const cid = result.IpfsHash 
                 if(!cid) {
                     return console.log("Error uploading:", imageFile);
@@ -67,7 +68,7 @@ fs.readdir(pinFolder, (err, files) => {
                 const pinData = { fileName: imageFile, cid: cid };
                 pins.push(pinData); // Add pin data to the array
                 fs.writeFileSync(filePath, JSON.stringify(pinList, null, 2));
-              }).catch((err) => {console.log(err)})
+              }).catch((err: any) => {console.log(err)})
             } catch (error) {
               return error
             }
