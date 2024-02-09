@@ -1,2 +1,95 @@
-# pinata-fdk
-Farcaster frame SDK 
+
+# Pinata FDK
+
+An SDK to easily create Farcaster Frames and pin images to IPFS using Pinata.
+
+## Usage/Examples
+
+## Getting Started
+
+If you want to leverage image pinning capabilities, you must enter you Pinata JWT and a Pinata gateway during intialization. 
+```javascript
+const PinataFDK = require('pinata-fdk');
+const fdk = new PinataFDK({
+    pinata_jwt: "YOUR_PINATA_JWT",
+    pinata_gateway: "YOUR_PINATA_GATEWAY"}, 
+    //do not include https:// in your gateway url
+);
+```
+If you are only using the frame metadata functionality, you do not need to enter your credentials. 
+```javascript 
+const PinataFDK = require('pinata-fdk');
+const fdk = new PinataFDK();
+```
+
+## getFrameMetadata()
+You can use this funcion to easily create the metadata needed for your Farcaster Frame. 
+The only required input is `cid` or `image`
+
+### Example Input
+```javascript
+ const frameMetadata = await fdk.getFrameMetadata({
+    post_url: `your_domain/api/test`,
+    input: {text: "Hello, world!"},
+    aspectRatio: "1.91:1",
+    buttons: [
+      { label: 'Click me', action: 'post'},
+      { label: 'Button 2', action: "post_redirect"},
+      { label: 'Button 3', action: "mint" },
+      { label: 'Button 4', action: "link" },
+    ],
+    cid: "YOUR_CID"
+  });
+  ```
+### Example Output
+```javascript
+<meta name="fc:frame" content="vNext">
+<meta name="og:image" content="https://YOUR_GATEWAY/ipfs/YOUR_CID">
+<meta name="fc:frame:image" content="https://YOUR_GATEWAY/ipfs/YOUR_CID">
+<meta name="fc:frame:aspectRatio" content="1.91:1">
+<meta name="fc:frame:input:text" content="Hello, world!">
+<meta name="fc:frame:button:1" content="Click me">
+<meta name="fc:frame:button:1:action" content="post">
+<meta name="fc:frame:button:2" content="Button 2">
+<meta name="fc:frame:button:2:action" content="post_redirect">
+<meta name="fc:frame:button:3" content="Button 3">
+<meta name="fc:frame:button:3:action" content="mint">
+<meta name="fc:frame:button:4" content="Button 4">
+<meta name="fc:frame:button:4:action" content="link">
+<meta name="fc:frame:post_url" content="your_domain/api/test">
+```
+
+### Images for Frame Metadata
+There are three different ways to set the images of your frame metadata. 
+
+⚡️ IPFS Upload
+
+⚡️ Raw URL 
+
+⚡️ CID
+
+
+###  IPFS Uploads
+```javascript
+const frameMetadata = await fdk.getFrameMetadata({
+    image: { url: "your_image_url", ipfs: true}
+  });
+
+//Must insert Pinata credentials when intializing SDK.  
+```
+### Raw URL
+
+```javascript
+const frameMetadata = await fdk.getFrameMetadata({
+    image: { url: "your_image_url", ipfs: false}
+  });
+``` 
+### CID
+```javascript
+const frameMetadata = await fdk.getFrameMetadata({
+    cid: "QmX63EYiDk9cExrv4GDmZ5soJKkgqoUJv9LbtPyugLBtV2"
+  });
+  
+//Must insert Pinata credentials when intializing SDK.    
+```
+
