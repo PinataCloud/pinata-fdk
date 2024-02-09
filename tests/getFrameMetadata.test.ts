@@ -1,8 +1,8 @@
 import { getFrameMetadata } from "../src/core/getFrameMetadata";
 
 describe('getFrameMetadata function', () => {
-    it('generates button metadata for a Farcaster Frame', () => {
-        const frameMetadata = getFrameMetadata({
+    it('generates button metadata for a Farcaster Frame', async () => {
+        const frameMetadata = await getFrameMetadata({
             post_url: 'https://example.com/post',
             buttons: [
                 { label: 'Click me', action: 'post'},
@@ -10,12 +10,12 @@ describe('getFrameMetadata function', () => {
                 { label: 'Button 3', action: "mint"},
                 { label: 'Button 4', action: "post_redirect"},
             ],
-            image: {url: "https://gold-mere-anglerfish-964.mypinata.cloud/ipfs/QmTa2TnVpVrkQp8yjjF7ZYTtzYPwj2dgE6HAGxHYqzk6Da/cc.jpg"}
+            image: {url: "https://imagedelivery.net/BXluQx4ige9GuW0Ia56BHw/a7c16ab0-31fd-406a-87f3-0da1b41a4000/original"}
         });
         const expectedMetadata = 
             `<meta name="fc:frame" content="vNext">\n` +
-            `<meta name="og:image" content="https://gold-mere-anglerfish-964.mypinata.cloud/ipfs/QmTa2TnVpVrkQp8yjjF7ZYTtzYPwj2dgE6HAGxHYqzk6Da/cc.jpg">\n` +
-            `<meta name="fc:frame:image" content="https://gold-mere-anglerfish-964.mypinata.cloud/ipfs/QmTa2TnVpVrkQp8yjjF7ZYTtzYPwj2dgE6HAGxHYqzk6Da/cc.jpg">\n` +
+            `<meta name="og:image" content="https://imagedelivery.net/BXluQx4ige9GuW0Ia56BHw/a7c16ab0-31fd-406a-87f3-0da1b41a4000/original">\n` +
+            `<meta name="fc:frame:image" content="https://imagedelivery.net/BXluQx4ige9GuW0Ia56BHw/a7c16ab0-31fd-406a-87f3-0da1b41a4000/original">\n` +
             `<meta name="fc:frame:button:1" content="Click me">\n`+
             `<meta name="fc:frame:button:1:action" content="post">\n`+
             `<meta name="fc:frame:button:2" content="Button 2">\n`+
@@ -28,8 +28,8 @@ describe('getFrameMetadata function', () => {
         expect(frameMetadata).toEqual(expectedMetadata);
     });
     
-    it('generates metadata for a Farcaster Frame with aspect ratio and buttons', () => {
-        const frameMetadata = getFrameMetadata({
+    it('generates metadata for a Farcaster Frame with aspect ratio and buttons', async () => {
+        const frameMetadata = await getFrameMetadata({
             image: {url: "https://example.com/image.jpg"},
             post_url: 'https://example.com/post',
             aspectRatio: "1:1",
@@ -51,8 +51,8 @@ describe('getFrameMetadata function', () => {
         expect(frameMetadata).toEqual(expectedMetadata);
     });
     
-    it('generates metadata for a Farcaster Frame CID', () => {
-        const frameMetadata = getFrameMetadata({
+    it('generates metadata for a Farcaster Frame CID', async () => {
+        const frameMetadata = await getFrameMetadata({
             post_url: 'https://example.com/post',
             cid: "QmTa2TnVpVrkQp8yjjF7ZYTtzYPwj2dgE6HAGxHYqzk6Da",
         });

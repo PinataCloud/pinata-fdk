@@ -1,12 +1,12 @@
 {
   "name": "pinata-fdk",
-  "version": "1.0.1",
+  "version": "1.0.2",
   "description": "pinata cloud sdk for farcaster frame development",
   "main": "./dist/index.js",
   "module": "./dist/index.mjs",
   "types": "./dist/index.d.ts",
   "bin": {
-    "pin": "./src/scripts/pin.ts"
+    "pin": "./dist/bin.js"
   },
   "files": [
     "dist"

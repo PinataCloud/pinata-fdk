@@ -1,35 +1,34 @@
 import { FrameHTMLType, FrameButtonMetadata} from './types';
 import dotenv from 'dotenv';
 dotenv.config();
-import axios from 'axios';
-const FormData = require("form-data");
+export const uploadByURL = async (url: string) => {
+  try {
+    const urlStream = await fetch(url);
+    const arrayBuffer = await urlStream.arrayBuffer();
+    const blob = new Blob([arrayBuffer]);
+    const JWT = process.env['PINATA_JWT'];
 
-// export const uploadUrl = async (sourceUrl:string) => {
-//   const axiosInstance = axios.create();
-//   const data = new FormData();
-//   const response = await axiosInstance(sourceUrl, {
-//     method: "GET",
-//     responseType: "stream",
-//   });
-//   data.append(`file`, response.data);
-//   try {
-//     const res: any = await axios.post("https://api.pinata.cloud/pinning/pinFileToIPFS", data, {
-//       headers: {
-//           'Content-Type': `multipart/form-data; boundary=${data._boundary}`,
-//           'Authorization': `Bearer ${process.env['PINATA_JWT']}`
-//       }
-//     });
-//     console.log("res", res);
-//     return res
-//   } catch (error) {
-//     return error;
-//   }
-// };
+    const data = new FormData();
+    data.append("file", blob);
+    const upload = await fetch('https://api.pinata.cloud/pinning/pinFileToIPFS', {
+      method: 'POST',
+      headers: {
+        'Authorization': `Bearer ${JWT}`
+      },
+      body: data
+    });
+    const uploadRes = await upload.json();
+    return uploadRes;
+  } catch (error){
+    console.log(error);
+    return error;
+  }
+}
 
 /**
  * This function generates the head metadata for a Farcaster Frame.
  * @param buttons: The buttons to use for the frame.
- * @param image: The image to use for the frame.
+ * @param image: The url to use for the frame and upload IPFS boolean.
  * @param cid: The cid of the image to use for the frame.
  * @param input: The text input to use for the frame.
  * @param post_url: The URL to post the frame to.
@@ -37,7 +36,7 @@ const FormData = require("form-data");
  * @returns The raw HTML for the frame.
  */
  
-export function getFrameMetadata ({
+export async function getFrameMetadata ({
   buttons,
   image,
   cid,
@@ -45,7 +44,7 @@ export function getFrameMetadata ({
   input,
   post_url,
   refresh_period,
-}: FrameHTMLType): string {
+}: FrameHTMLType): Promise<string> {
   const metadata: Record<string, string> = {
     'fc:frame': 'vNext',
   };
@@ -53,18 +52,17 @@ export function getFrameMetadata ({
     metadata["og:image"] = `https://${process.env['PINATA_GATEWAY']}/ipfs/${cid}`;
     metadata['fc:frame:image'] = `https://${process.env['PINATA_GATEWAY']}/ipfs/${cid}`;
   }
-  // else if (image && image.ipfs) {
-  //    const res = await uploadUrl(image.url)
-  //    console.log("res", res);
-  //     if(res.IpfsHash){
-  //       metadata['fc:frame:image'] = `https://${process.env['PINATA_GATEWAY']}/ipfs/${res.IpfsHash}`;
-  //     }
-  //     else{
-  //       throw new Error("Image failed to upload to IPFS.");
-  //     }
-  // }
-  //TODO add support for uploading urls to IPFS
-  else if (image && !cid) {
+  else if (image && image.ipfs) {
+     const res = await uploadByURL(image.url)
+      if(res && res.IpfsHash){
+        metadata["og:image"] = `https://${process.env['PINATA_GATEWAY']}/ipfs/${res.IpfsHash}`;
+        metadata['fc:frame:image'] = `https://${process.env['PINATA_GATEWAY']}/ipfs/${res.IpfsHash}`;
+      }
+      else{
+        throw new Error("Image failed to upload to IPFS.");
+      }
+   }
+  else if (image && !image.ipfs && !cid) {
     metadata["og:image"] = image.url;
     metadata['fc:frame:image'] = image.url;
   } 
