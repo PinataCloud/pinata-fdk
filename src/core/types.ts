@@ -25,7 +25,7 @@ export type FrameHTMLType = {
   image?: {url: string, ipfs?: boolean};
   cid?: string;
   input?: FrameInputMetadata;
-  post_url: string;
+  post_url?: string;
   refresh_period?: number;
   aspectRatio?: "1.91:1" | "1:1" 
 } & (
