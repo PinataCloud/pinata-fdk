@@ -15,7 +15,7 @@ yarn add pinata-fdk
 
 ### Initialization
 
-If you want to leverage image pinning capabilities, you must enter you Pinata JWT and a Pinata gateway during intialization. 
+If you want to leverage IPFS pinning capabilities, you must enter your Pinata JWT and a Pinata gateway during intialization. 
 ```javascript
 const PinataFDK = require('pinata-fdk');
 const fdk = new PinataFDK({
@@ -32,7 +32,7 @@ const fdk = new PinataFDK();
 
 ## Usage/Examples
 
-### getFrameMetadata()
+## getFrameMetadata()
 You can use this funcion to easily create the metadata needed for your Farcaster Frame. 
 The only required input is `cid` or `image`
 
@@ -131,7 +131,7 @@ const frameMetadata = await fdk.getFrameMetadata({
 //Must insert Pinata credentials when intializing SDK.    
 ```
 
-### validateFrameMessage()
+## validateFrameMessage()
 
 Returns a Promise that indicates wether a message signature is valid, by querying Pinata's Farcaster hub. 
 
@@ -141,7 +141,7 @@ const { isValid, message } = await fdk.validateFrameMessage(body);
 
 ```
 
-### Pin Files from CLI
+## Pin Files from CLI
 ### npx pin
 
 Pin files directly from your `src` folder using the `pinata-fdk`  **npx pin** command.
