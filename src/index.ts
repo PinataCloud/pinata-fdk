@@ -14,8 +14,8 @@ class PinataFDK {
         return getFrameMetadata(metadata, this.config)
     }
 
-    getFrameMessage(message: FrameActionPayload){
-        return validateFrameMessage(message)
+    validateFrameMessage(payload: FrameActionPayload){
+        return validateFrameMessage(payload)
     }
 }
 module.exports = PinataFDK;
