@@ -6,3 +6,6 @@
 
 # Build files
 /dist
+
+# Ignore the Intellij IDE files
+.idea
