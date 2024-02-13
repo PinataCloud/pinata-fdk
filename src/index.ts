@@ -1,15 +1,16 @@
 import { getFrameMetadata } from "./core/getFrameMetadata";
 import { validateFrameMessage } from "./core/validateFrameMessage";
 import { FrameHTMLType } from "./core/types";
-import { FrameActionPayload } from "pinata-fdk";
+import { FrameActionPayload } from "./core/types";
 import { PinataConfig } from "./core/types";
 
 class PinataFDK {
     config: PinataConfig | undefined
 
-    constructor(config: PinataConfig) {
+    constructor(config?: PinataConfig) {
         this.config = config
     }
+
     getFrameMetadata(metadata: FrameHTMLType){
         return getFrameMetadata(metadata, this.config)
     }
