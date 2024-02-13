@@ -38,7 +38,7 @@ export async function getFrameMetadata ({
   buttons,
   image,
   cid,
-  aspectRatio,
+  aspect_ratio,
   input,
   post_url,
   refresh_period,
@@ -64,9 +64,6 @@ export async function getFrameMetadata ({
     metadata["og:image"] = image.url;
     metadata['fc:frame:image'] = image.url;
   } 
-  if(aspectRatio){
-    metadata['fc:frame:aspectRatio'] = aspectRatio;
-  }
   if (input) {
     if (input.text.length > 32) {
       throw new Error("Input text exceeds maximum length of 32 bytes.");
@@ -95,6 +92,9 @@ export async function getFrameMetadata ({
         metadata[`fc:frame:button:${index + 1}:target`] = button.target;
       }
     });
+  }
+  if(aspect_ratio){
+    metadata['fc:frame:aspect_ratio'] = aspect_ratio;
   }
 
   // Set frame post URL
