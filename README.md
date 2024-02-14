@@ -17,7 +17,7 @@ yarn add pinata-fdk
 
 If you want to leverage IPFS pinning capabilities, you must enter your Pinata JWT and a Pinata gateway during intialization. 
 ```javascript
-const PinataFDK = require('pinata-fdk');
+import {PinataFDK} from "pinata-fdk";
 const fdk = new PinataFDK({
     pinata_jwt: "YOUR_PINATA_JWT",
     pinata_gateway: "YOUR_PINATA_GATEWAY"}, 
@@ -26,7 +26,7 @@ const fdk = new PinataFDK({
 ```
 If you are only using the frame metadata functionality, you do not need to enter your credentials. 
 ```javascript 
-const PinataFDK = require('pinata-fdk');
+import {PinataFDK} from "pinata-fdk";
 const fdk = new PinataFDK();
 ```
 
