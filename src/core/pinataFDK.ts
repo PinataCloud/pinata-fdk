@@ -4,7 +4,7 @@ import { FrameHTMLType } from "./types";
 import { FrameActionPayload } from "./types";
 import { PinataConfig } from "./types";
 import { decodedFrameMetadata } from "./decodedFrameMetadata";
-import { FrameActionMessage } from "@farcaster/core";
+import { Message } from "@farcaster/hub-nodejs";
 
 export class PinataFDK {
     config: PinataConfig | undefined
@@ -19,7 +19,7 @@ export class PinataFDK {
 
     validateFrameMessage(payload: FrameActionPayload): Promise<{
         isValid: boolean;
-        message: FrameActionMessage | undefined;
+        message: Message | undefined;
       }>{
         return validateFrameMessage(payload)
     }

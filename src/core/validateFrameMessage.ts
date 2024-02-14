@@ -1,40 +1,32 @@
-import { FrameActionPayload} from "./types";
-import { hexStringToUint8Array } from "./utils";
-import { FrameActionMessage, Message } from "@farcaster/core";
+import { FrameActionPayload } from "./types";
+import { getSSLHubRpcClient, Message } from "@farcaster/hub-nodejs";
 
 /**
- * @returns a Promise that resolves with whether the message signature is valid, by querying a Farcaster hub, as well as the message itself
+ * Validates a frame message by querying a Farcaster hub.
+ * @param body The frame action payload containing the message to validate.
+ * @returns A Promise that resolves with an object containing whether the message signature is valid and the validated message.
  */
 export async function validateFrameMessage(body: FrameActionPayload): Promise<{
   isValid: boolean;
-  message: FrameActionMessage | undefined;
+  message: Message | undefined;
 }> {
-  const hubBaseUrl = "https://hub.pinata.cloud/";
-
-  const validateMessageResponse = await fetch(
-    `${hubBaseUrl}/v1/validateMessage`,
-    {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/octet-stream",
-      },
-      body: hexStringToUint8Array(body.trustedData.messageBytes),
-    }
-  );
-
-  const validateMessageJson = await validateMessageResponse.json();
-
-  if (!validateMessageJson.valid) {
-    return {
-      isValid: false,
-      message: undefined,
+  const HUB_URL = process.env['HUB_URL'] || "hub-grpc.pinata.cloud"
+  const client = getSSLHubRpcClient(HUB_URL);
+  const frameMessage = Message.decode(Buffer.from(body?.trustedData?.messageBytes || '', 'hex'));
+  const result = await client.validateMessage(frameMessage);  
+  if (result.isOk() && result.value.valid) {        
+      return {
+      isValid: result.value.valid,
+      message: result.value.message
     };
   } else {
     return {
-      isValid: true,
-      message: Message.fromJSON(
-        validateMessageJson.message
-      ) as FrameActionMessage,
+
+      isValid: false,
+      message: undefined,
     };
   }
 }
+
+
+
