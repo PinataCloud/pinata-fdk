@@ -1,7 +1,6 @@
 import { NextRequest } from "next/server";
 import { ImageResponse } from "next/og";
 
-
 export const dynamic = "force-dynamic";
 
 export const config = {
@@ -11,86 +10,45 @@ export const config = {
 export default async function GET(req: NextRequest) {
   const searchParams = req.nextUrl.searchParams;
   const message = searchParams.get("message") ?? "";
-  
-  // Get current date and time
-  const currentDate = new Date();
-  const formattedDate = currentDate.toLocaleDateString('en-US', { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' });
-  const formattedTime = currentDate.toLocaleTimeString('en-US', { hour: 'numeric', minute: 'numeric', hour12: true });
 
   return new ImageResponse(
     (
       <div
         style={{
-          display: "flex", // Use flex layout
-          flexDirection: "row", // Align items horizontally
-          alignItems: "stretch", // Stretch items to fill the container height
+          display: "flex",
+          position: "relative",
           width: "100%",
-          height: "100vh", // Full viewport height
-          backgroundColor: "black",
+          height: "100%",
         }}
       >
         <img
           style={{
-            height: "100%", // Make image full height
-            objectFit: "cover", // Cover the area without losing aspect ratio
-            width: "35%", // Image takes up 40% of the container's width
+            width: "100%",
+            height: "100%",
+            objectFit: "cover",
+            borderRadius: "8px",
           }}
-          src={`https://${process.env.PINATA_GATEWAY}/ipfs/QmR6vt6ufgABgHvXFPKc8p7GVSN3NGDZS7Bpe2ciAFokpV`}
+          src={`https://${process.env.PINATA_GATEWAY}/ipfs/QmUANg1yx46DaQRiFpjzHHWuxvzqfzV7XSHN4fWRXc6Go8`}
         />
         <div
           style={{
             display: "flex",
-            flexDirection: "column",
-            justifyContent: "flex-start",
-            paddingLeft: 24,
-            paddingRight: 24,
-            lineHeight: 1.2,
-            fontSize: 36,
-            color: "white",
-            flex: 1,
-            overflow: "hidden",
-            marginTop: 24,
+            position: "absolute",
+            top: "50%",
+            left: "50%",
+            transform: "translate(-50%, -50%)",
+            textAlign: "center",
+            color: "purple",
+            fontSize: "40px",
+            padding: "20px",
+            borderRadius: "8px",
+            fontFamily: "sans-serif",
+            width: "60%",
+            wordBreak: "break-word",
           }}
         >
-          <span style={{ fontSize: 32, marginLeft: 10, color: "white", marginBottom: 30 }}>{formattedDate} {formattedTime}</span>
-          <div
-            style={{
-              color: "pink",
-              fontSize: 72,
-              marginBottom: 12,
-              display: "flex"
-            }}
-          >
-            <strong>Pinnie read...</strong> 
-          </div>
-          <div
-            style={{
-              display: "flex",
-              overflow: "hidden",
-            }}
-          >
-            &quot;{message}&quot; 
-          </div>
-          <div
-            style={{
-              color: "pink",
-              fontSize: 72,
-              marginBottom: 12,
-              display: "flex"
-            }}
-          >
-            <strong>Pinnie says...</strong>
-          </div>
-          <div
-            style={{
-              display: "flex",
-              overflow: "hidden",
-            }}
-          >
-            &quot;Thanks for your message &#x1F496; &#x1F48C; &#x1F49C;&quot;
-          </div>
+          {message}
         </div>
-        
       </div>
     ),
     {
