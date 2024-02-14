@@ -18,7 +18,7 @@ export default async function handler(
   // The GET request is the intial request to the frame from index.tsx.
   if (req.method === "GET") {
     try {
-    const frameMetadata = await fdk.getFrameMetadata({input: {text: "Send Pinnie a message"}, buttons: [{label: "Send Message"}], cid: "QmYGS65BsDE7D4yw342GbGjF5LYgf73KnFXoYSwuSY7qL7", post_url: `${process.env.HOSTED_DOMAIN}/api/frame`,
+    const frameMetadata = await fdk.getFrameMetadata({input: {text: "Send Pinnie a Valentine"}, buttons: [{label: "Send"}], cid: "QmYGS65BsDE7D4yw342GbGjF5LYgf73KnFXoYSwuSY7qL7", post_url: `${process.env.HOSTED_DOMAIN}/api/frame`,
   })
     const html = 
     `<!DOCTYPE html>
@@ -27,9 +27,8 @@ export default async function handler(
         ${frameMetadata}
       </head>
       <body>
-        <div style="background: purple;">
-          <img style="width: 100%; margin: auto;" src="${process.env.PINATA_GATEWAY}/ipfs/QmYGS65BsDE7D4yw342GbGjF5LYgf73KnFXoYSwuSY7qL7" />
-          <h1>Send Pinnie a message</h1>
+        <div style="background: pink;">
+          <h1>Send Pinnie a Valentine</h1>
         </div>
       </body>
       </html>`

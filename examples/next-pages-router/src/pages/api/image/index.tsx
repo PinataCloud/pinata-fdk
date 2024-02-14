@@ -11,6 +11,12 @@ export const config = {
 export default async function GET(req: NextRequest) {
   const searchParams = req.nextUrl.searchParams;
   const message = searchParams.get("message") ?? "";
+  
+  // Get current date and time
+  const currentDate = new Date();
+  const formattedDate = currentDate.toLocaleDateString('en-US', { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' });
+  const formattedTime = currentDate.toLocaleTimeString('en-US', { hour: 'numeric', minute: 'numeric', hour12: true });
+
   return new ImageResponse(
     (
       <div
@@ -20,7 +26,7 @@ export default async function GET(req: NextRequest) {
           alignItems: "stretch", // Stretch items to fill the container height
           width: "100%",
           height: "100vh", // Full viewport height
-          backgroundColor: "white",
+          backgroundColor: "black",
         }}
       >
         <img
@@ -40,21 +46,22 @@ export default async function GET(req: NextRequest) {
             paddingRight: 24,
             lineHeight: 1.2,
             fontSize: 36,
-            color: "black",
+            color: "white",
             flex: 1,
             overflow: "hidden",
             marginTop: 24,
           }}
         >
+          <span style={{ fontSize: 32, marginLeft: 10, color: "white", marginBottom: 30 }}>{formattedDate} {formattedTime}</span>
           <div
             style={{
-              color: "purple",
+              color: "pink",
               fontSize: 72,
               marginBottom: 12,
               display: "flex"
             }}
           >
-            <strong>Pinnie read...</strong>
+            <strong>Pinnie read...</strong> 
           </div>
           <div
             style={{
@@ -62,11 +69,11 @@ export default async function GET(req: NextRequest) {
               overflow: "hidden",
             }}
           >
-            &quot;{message}&quot;
+            &quot;{message}&quot; 
           </div>
           <div
             style={{
-              color: "purple",
+              color: "pink",
               fontSize: 72,
               marginBottom: 12,
               display: "flex"
@@ -80,7 +87,7 @@ export default async function GET(req: NextRequest) {
               overflow: "hidden",
             }}
           >
-            &quot;Thanks for your message &#x1F49C;&quot;
+            &quot;Thanks for your message &#x1F496; &#x1F48C; &#x1F49C;&quot;
           </div>
         </div>
         
