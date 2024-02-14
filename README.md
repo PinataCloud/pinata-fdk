@@ -45,7 +45,7 @@ type FrameHTMLType = {
   input?: FrameInputMetadata;
   post_url?: string;
   refresh_period?: number;
-  aspectRatio?: "1.91:1" | "1:1" 
+  aspect_ratio?: "1.91:1" | "1:1" 
 } & (
   { image: {url: string, ipfs?: boolean}} | { cid: string }
 );
