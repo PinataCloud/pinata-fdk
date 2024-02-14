@@ -32,7 +32,7 @@ describe('getFrameMetadata function', () => {
         const frameMetadata = await getFrameMetadata({
             image: {url: "https://example.com/image.jpg"},
             post_url: 'https://example.com/post',
-            aspectRatio: "1:1",
+            aspect_ratio: "1:1",
             buttons: [
                 { label: 'Button 1', action: 'post' },
                 { label: 'Button 2', action: 'post_redirect' },

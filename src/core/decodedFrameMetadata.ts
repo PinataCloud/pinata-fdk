@@ -1,5 +1,6 @@
-import { FrameHTMLType,  PinataConfig} from './types';
+import { FrameHTMLType, PinataConfig} from './types';
 import { parseFrameDetails } from './utils';
+
 
 /**
  * This function generates the head metadata for a Farcaster Frame.
@@ -10,14 +11,11 @@ import { parseFrameDetails } from './utils';
  * @param post_url: The URL to post the frame to.
  * @param refresh_period: The refresh period for the image used.
  * @param aspect_ratio: The aspect ratio for the image used.
- * @returns The raw string HTML for a frame.
+ * @returns The key value pairs of the metadata for a frame.
  */
  
-export async function getFrameMetadata (frameDetails: FrameHTMLType, config?: PinataConfig): Promise<string> {
-  const metadata: Record<string, string> = await parseFrameDetails(frameDetails, config);
-  let metaTags = '';
-  for (const key in metadata) {
-    metaTags += `<meta name="${key}" content="${metadata[key]}">\n`;
-  }
-  return metaTags;
+ 
+export async function decodedFrameMetadata (frameDetails: FrameHTMLType, config?: PinataConfig): Promise<Record<string, string>> {
+    const metadata: Record<string, string> = await parseFrameDetails(frameDetails, config);
+    return metadata;
 };

@@ -1,5 +1,5 @@
 import { CastId, Message } from "@farcaster/core";
-import { FrameActionPayload } from "./types";
+import { FrameActionPayload, FrameButtonMetadata, FrameHTMLType, PinataConfig } from "./types";
 
 export function bytesToHexString(bytes: Uint8Array): `0x${string}` {
   return ("0x" + Buffer.from(bytes).toString("hex")) as `0x${string}`;
@@ -64,3 +64,109 @@ export function isValidVersion(version: string): boolean {
 
   return true;
 }
+
+export const parseFrameDetails = async (frameDetails: FrameHTMLType, config?: PinataConfig): Promise<Record<string, string>> => {
+   const {
+    buttons,
+    image,
+    cid,
+    aspect_ratio,
+    input,
+    post_url,
+    refresh_period,
+  } = frameDetails;
+    const metadata: Record<string, string> = {
+    'fc:frame': 'vNext',
+    };
+    if(cid && config){
+    metadata["og:image"] = `https://${config.pinata_gateway}/ipfs/${cid}`;
+    metadata['fc:frame:image'] = `https://${config.pinata_gateway}/ipfs/${cid}`;
+    }
+    else if (image && image.ipfs && config && config.pinata_jwt) {
+    const res = await uploadByURL(image.url, config);
+      if(res && res.IpfsHash && config.pinata_gateway){
+        metadata["og:image"] = `https://${config.pinata_gateway}/ipfs/${res.IpfsHash}`;
+        metadata['fc:frame:image'] = `https://${config.pinata_gateway}/ipfs/${res.IpfsHash}`;
+      }
+      else{
+        throw new Error("Error uploading image to IPFS");
+      }
+    }
+    else if (image && !image.ipfs && !cid) {
+    metadata["og:image"] = image.url;
+    metadata['fc:frame:image'] = image.url;
+    } 
+    if (input) {
+    if (input.text.length > 32) {
+      throw new Error("Input text exceeds maximum length of 32 bytes.");
+    }
+    metadata['fc:frame:input:text'] = input.text;
+    }
+    // Set frame buttons
+    if (buttons) {
+    if (buttons.length > 4) {
+      throw new Error("Maximum of 4 buttons allowed.");
+    }
+    buttons.forEach((button: FrameButtonMetadata, index: number) => {
+      if (!button.label || button.label.length > 256) {
+        throw new Error("Button label is required and must be maximum of 256 bytes.");
+      }
+      metadata[`fc:frame:button:${index + 1}`] = button.label;
+      if (button.action) {
+        if (!['post', 'post_redirect', 'mint', "link"].includes(button.action)) {
+          throw new Error("Invalid button action.");
+        }
+        metadata[`fc:frame:button:${index + 1}:action`] = button.action;
+      } else {
+        metadata[`fc:frame:button:${index + 1}:action`] = 'post'; // Default action
+      }
+      if (button.target) {
+        metadata[`fc:frame:button:${index + 1}:target`] = button.target;
+      }
+    });
+    }
+    if(aspect_ratio){
+    metadata['fc:frame:aspect_ratio'] = aspect_ratio;
+    }
+
+    // Set frame post URL
+    if (post_url) {
+    metadata['fc:frame:post_url'] = post_url;
+    }
+
+    // Set frame refresh period
+    if (refresh_period) {
+    if (refresh_period < 0) {
+      throw new Error("Refresh period must be a positive number.");
+    }
+    metadata['fc:frame:refresh_period'] = refresh_period.toString();
+    }
+    return metadata;
+}
+
+
+
+export const uploadByURL = async (url: string, config: PinataConfig) => {
+  try {
+    const urlStream = await fetch(url);
+    const arrayBuffer = await urlStream.arrayBuffer();
+    const blob = new Blob([arrayBuffer]);
+
+    const data = new FormData();
+    data.append("file", blob);
+    const upload = await fetch('https://api.pinata.cloud/pinning/pinFileToIPFS', {
+      method: 'POST',
+      headers: {
+        'Authorization': `Bearer ${config.pinata_jwt}`,
+      },
+      body: data
+    });
+    const uploadRes = await upload.json();
+    return uploadRes;
+  } catch (error){
+    console.log(error);
+    return error;
+  }
+}
+
+
