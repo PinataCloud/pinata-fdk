@@ -10,7 +10,7 @@ export async function validateFrameMessage(body: FrameActionPayload): Promise<{
   isValid: boolean;
   message: Message | undefined;
 }> {
-  const HUB_URL = process.env['HUB_URL'] || "hub-grpc.pinata.cloud"
+  const HUB_URL = "hub-grpc.pinata.cloud"
   const client = getSSLHubRpcClient(HUB_URL);
   const frameMessage = Message.decode(Buffer.from(body?.trustedData?.messageBytes || '', 'hex'));
   const result = await client.validateMessage(frameMessage);  
@@ -21,7 +21,6 @@ export async function validateFrameMessage(body: FrameActionPayload): Promise<{
     };
   } else {
     return {
-
       isValid: false,
       message: undefined,
     };
