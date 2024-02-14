@@ -119,7 +119,7 @@ export const parseFrameDetails = async (frameDetails: FrameHTMLType, config?: Pi
     });
     }
     if(aspect_ratio){
-    metadata['fc:frame:aspect_ratio'] = aspect_ratio;
+    metadata['fc:frame:image:aspect_ratio'] = aspect_ratio;
     }
 
     // Set frame post URL
