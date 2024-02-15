@@ -1,5 +1,6 @@
 import { FrameActionPayload, PinataConfig} from './types';
 
+
 /**
  * This function sends frame data to track analytics.
  * @param frame_data: The Frame Action data produced by Farcasater (req.body)
@@ -12,7 +13,7 @@ export async function sendAnalytics(frame_data: FrameActionPayload, config: Pina
     }
     try {
         const result = await fetch(
-            "https://api.devpinata.cloud/farcaster/frames/interactions",
+            "https://api.pinata.cloud/farcaster/frames/interactions",
             {
                 method: "POST",
                 headers: {
