@@ -141,6 +141,20 @@ const { isValid, message } = await fdk.validateFrameMessage(body);
 
 ```
 
+## Frame Analytics
+If you'd like to track the interactions your frame(s) receive over time, you can send analytics data that is made available on a dashboard inside your Pinata account. 
+
+![Analytics dashboard](https://azure-tiny-tahr-350.mypinata.cloud/ipfs/QmfNvYKNHLFut99TRmwVAhKa1ePUoeqpgB61rxfzdoM5zq)
+
+In any of your POST endpoints for frames, you can send analytics like this: 
+
+```javascript
+const frame_id = "my-unique-frame-name"
+const frame_data = req.body // this should be the raw payload from the frame action
+
+await sendAnalytics(frame_data, frame_id)
+```
+
 ## Pin Files from CLI
 ### npx pin
 
