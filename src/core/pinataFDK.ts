@@ -5,6 +5,7 @@ import { FrameActionPayload } from "./types";
 import { PinataConfig } from "./types";
 import { decodedFrameMetadata } from "./decodedFrameMetadata";
 import { Message } from "@farcaster/hub-nodejs";
+import { sendAnalytics } from "./sendAnalytics";
 
 export class PinataFDK {
     config: PinataConfig | undefined
@@ -26,5 +27,8 @@ export class PinataFDK {
 
     decodedFrameMetadata(metadata: FrameHTMLType): Promise<Record<string, string>>{
         return decodedFrameMetadata(metadata, this.config)
+    }
+    sendAnalytics(frame_data: FrameActionPayload): Promise<{ success: boolean }>{
+        return sendAnalytics(frame_data, this.config)
     }
 }
