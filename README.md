@@ -69,7 +69,7 @@ type FrameInputMetadata = {
  const frameMetadata = await fdk.getFrameMetadata({
     post_url: `your_domain/api/test`,
     input: {text: "Hello, world!"},
-    aspectRatio: "1.91:1",
+    aspect_ratio: "1.91:1",
     buttons: [
       { label: 'Click me', action: 'post'},
       { label: 'Button 2', action: "post_redirect"},
@@ -84,7 +84,7 @@ type FrameInputMetadata = {
 <meta name="fc:frame" content="vNext">
 <meta name="og:image" content="https://YOUR_GATEWAY/ipfs/YOUR_CID">
 <meta name="fc:frame:image" content="https://YOUR_GATEWAY/ipfs/YOUR_CID">
-<meta name="fc:frame:aspectRatio" content="1.91:1">
+<meta name="fc:frame:aspect_ratio" content="1.91:1">
 <meta name="fc:frame:input:text" content="Hello, world!">
 <meta name="fc:frame:button:1" content="Click me">
 <meta name="fc:frame:button:1:action" content="post">
