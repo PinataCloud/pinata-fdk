@@ -43,7 +43,6 @@ export default async function GET(req: NextRequest) {
             padding: "20px",
             borderRadius: "8px",
             fontFamily: "sans-serif",
-            width: "60%",
             wordBreak: "break-word",
           }}
         >
