@@ -1,7 +1,7 @@
 
 # Pinata FDK
 
-An SDK to easily create Farcaster Frames and pin images to IPFS using Pinata.
+An SDK to easily create Farcaster Frames and pin images to IPFS using Pinata. View the ![full documentation](https://docs.pinata.cloud/farcaster/fdk). 
 
 ## Getting Started
 
@@ -142,17 +142,35 @@ const { isValid, message } = await fdk.validateFrameMessage(body);
 ```
 
 ## Frame Analytics
-If you'd like to track the interactions your frame(s) receive over time, you can send analytics data that is made available on a dashboard inside your Pinata account. 
+If you'd like to track the interactions your frame(s) receive over time, you can send analytics data that is made available on a dashboard inside your Pinata account. To get started visit the ![Integrations Page](https://app.pinata.cloud/integrations?_gl=1*sa853s*_ga*MTg2MDc4ODc4MS4xNzA4MDEzNDQw*_ga_5RMPXG14TE*MTcwODExMjIwNS43LjEuMTcwODExNjY2NC44LjAuMA..#iss=https%3A%2F%2Fauth.pinata.cloud%2Frealms%2Fpinata) page by clicking on the profile button in the top right, then selecting Integrations. Note: You will need Warpcast installed on your phone to sign in. 
 
 ![Analytics dashboard](https://azure-tiny-tahr-350.mypinata.cloud/ipfs/QmfNvYKNHLFut99TRmwVAhKa1ePUoeqpgB61rxfzdoM5zq)
 
 In any of your POST endpoints for frames, you can send analytics like this: 
 
 ```javascript
+// This should be the raw payload from the frame action
+const frame_data = {
+  untrustedData: {
+    fid: 2,
+    url: "https://fcpolls.com/polls/1",
+    messageHash: "0xd2b1ddc6c88e865a33cb1a565e0058d757042974",
+    timestamp: 1706243218,
+    network: 1,
+    buttonIndex: 2,
+    inputText: "hello world", // "" if requested and no input, undefined if input not requested
+    castId: {
+      fid: 226,
+      hash: "0xa48dd46161d8e57725f5e26e34ec19c13ff7f3b9",
+    },
+  },
+  trustedData: {
+    messageBytes: "d2b1ddc6c88e865a33cb1a565e0058d757042974...",
+  },
+};
 const frame_id = "my-unique-frame-name"
-const frame_data = req.body // this should be the raw payload from the frame action
 
-await fdk.sendAnalytics(frame_data, frame_id)
+await fdk.sendAnalytics(frame_id, frame_data)
 ```
 
 ## Pin Files from CLI
