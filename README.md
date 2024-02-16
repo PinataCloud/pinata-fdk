@@ -152,7 +152,7 @@ In any of your POST endpoints for frames, you can send analytics like this:
 const frame_id = "my-unique-frame-name"
 const frame_data = req.body // this should be the raw payload from the frame action
 
-await sendAnalytics(frame_data, frame_id)
+await fdk.sendAnalytics(frame_data, frame_id)
 ```
 
 ## Pin Files from CLI
