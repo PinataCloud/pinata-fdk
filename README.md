@@ -1,7 +1,7 @@
 
 # Pinata FDK
 
-An SDK to easily create Farcaster Frames and pin images to IPFS using Pinata. View the full documentation ![here](https://docs.pinata.cloud/farcaster/fdk). 
+An SDK to easily create Farcaster Frames and pin images to IPFS using Pinata. View the full documentation [here](https://docs.pinata.cloud/farcaster/fdk). 
 
 ## Getting Started
 
@@ -142,7 +142,7 @@ const { isValid, message } = await fdk.validateFrameMessage(body);
 ```
 
 ## Frame Analytics
-If you'd like to track the interactions your frame(s) receive over time, you can send analytics data that is made available on a dashboard inside your Pinata account. To get started visit the ![Integrations Page](https://app.pinata.cloud/integrations?_gl=1*sa853s*_ga*MTg2MDc4ODc4MS4xNzA4MDEzNDQw*_ga_5RMPXG14TE*MTcwODExMjIwNS43LjEuMTcwODExNjY2NC44LjAuMA..#iss=https%3A%2F%2Fauth.pinata.cloud%2Frealms%2Fpinata) page by clicking on the profile button in the top right, then selecting Integrations. Note: You will need Warpcast installed on your phone to sign in. 
+If you'd like to track the interactions your frame(s) receive over time, you can send analytics data that is made available on a dashboard inside your Pinata account. To get started visit the [Integrations Page](https://app.pinata.cloud/integrations?_gl=1*sa853s*_ga*MTg2MDc4ODc4MS4xNzA4MDEzNDQw*_ga_5RMPXG14TE*MTcwODExMjIwNS43LjEuMTcwODExNjY2NC44LjAuMA..#iss=https%3A%2F%2Fauth.pinata.cloud%2Frealms%2Fpinata) page by clicking on the profile button in the top right, then selecting Integrations. Note: You will need Warpcast installed on your phone to sign in. 
 
 ![Analytics dashboard](https://azure-tiny-tahr-350.mypinata.cloud/ipfs/QmfNvYKNHLFut99TRmwVAhKa1ePUoeqpgB61rxfzdoM5zq)
 
