@@ -7,10 +7,11 @@ import { FrameActionPayload, PinataConfig} from './types';
  * @returns Success message boolean.
  */
 
-export async function sendAnalytics(frame_data: FrameActionPayload, config: PinataConfig | undefined) {
+export async function sendAnalytics(frame_id: string, frame_data: FrameActionPayload, config: PinataConfig | undefined) {
     if(!config){
       throw new Error('Pinata configuration required to send analytics.')
-    }
+    }    
+    
     try {
         const result = await fetch(
             "https://api.pinata.cloud/farcaster/frames/interactions",
@@ -22,16 +23,19 @@ export async function sendAnalytics(frame_data: FrameActionPayload, config: Pina
                 },
                 body: JSON.stringify({
                     data: frame_data,
-                    frame_id: config?.frame_id
+                    frame_id: frame_id
                 }),
             }
         );
+
         if (result.ok) {
             return { success: true };
         } else {
+            const data = await result.text();
             throw new Error(`Request failed with status ${result.status}`);
         }
     } catch (error) {
+        console.log(error);
         console.error("Error sending analytics:", error);
         return { success: false };
     }

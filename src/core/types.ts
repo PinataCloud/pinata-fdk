@@ -18,7 +18,6 @@ export type FrameInputMetadata = {
 export type PinataConfig = {
   pinata_jwt: string;
   pinata_gateway: string;
-  frame_id: string;
 }
 
 export type FrameHTMLType = {
