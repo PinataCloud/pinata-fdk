@@ -28,7 +28,7 @@ export class PinataFDK {
     decodedFrameMetadata(metadata: FrameHTMLType): Promise<Record<string, string>>{
         return decodedFrameMetadata(metadata, this.config)
     }
-    sendAnalytics(frame_data: FrameActionPayload): Promise<{ success: boolean }>{
-        return sendAnalytics(frame_data, this.config)
+    sendAnalytics(frame_id: string, frame_data: FrameActionPayload): Promise<{ success: boolean }>{
+        return sendAnalytics(frame_id, frame_data, this.config)
     }
 }
