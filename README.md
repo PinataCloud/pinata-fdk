@@ -1,7 +1,7 @@
 
 # Pinata FDK
 
-An SDK to easily create Farcaster Frames and pin images to IPFS using Pinata. View the ![full documentation](https://docs.pinata.cloud/farcaster/fdk). 
+An SDK to easily create Farcaster Frames and pin images to IPFS using Pinata. View the full documentation ![here](https://docs.pinata.cloud/farcaster/fdk). 
 
 ## Getting Started
 
