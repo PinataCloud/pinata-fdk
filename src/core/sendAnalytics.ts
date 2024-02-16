@@ -10,10 +10,8 @@ import { FrameActionPayload, PinataConfig} from './types';
 export async function sendAnalytics(frame_id: string, frame_data: FrameActionPayload, config: PinataConfig | undefined) {
     if(!config){
       throw new Error('Pinata configuration required to send analytics.')
-    }
-
-    frame_data["untrustedData"]["timestamp"] = frame_data.untrustedData.timestamp / 1000;
-        
+    }    
+    
     try {
         const result = await fetch(
             "https://api.pinata.cloud/farcaster/frames/interactions",
@@ -29,12 +27,15 @@ export async function sendAnalytics(frame_id: string, frame_data: FrameActionPay
                 }),
             }
         );
+
         if (result.ok) {
             return { success: true };
         } else {
+            const data = await result.text();
             throw new Error(`Request failed with status ${result.status}`);
         }
     } catch (error) {
+        console.log(error);
         console.error("Error sending analytics:", error);
         return { success: false };
     }
