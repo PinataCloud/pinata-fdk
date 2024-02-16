@@ -43,8 +43,7 @@ export async function sendAnalytics(frame_id: string, frame_data: FrameActionPay
 
         if (result.ok) {
             return { success: true };
-        } else {
-            const data = await result.text();
+        } else {            
             throw new Error(`Request failed with status ${result.status}`);
         }
     } catch (error) {
