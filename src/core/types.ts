@@ -29,7 +29,7 @@ export type FrameHTMLType = {
   refresh_period?: number;
   aspect_ratio?: "1.91:1" | "1:1" 
 } & (
-  { image: {url: string, ipfs?: boolean}} | { cid: string }
+  { image: {url: string}} | { cid: string }
 );
 
 export type FrameButtonMetadata = {
