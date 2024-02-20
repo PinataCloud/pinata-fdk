@@ -22,7 +22,7 @@ export type PinataConfig = {
 
 export type FrameHTMLType = {
   buttons?: [FrameButtonMetadata, ...FrameButtonMetadata[]];
-  image?: {url: string, ipfs?: boolean};
+  image?: {url: string};
   cid?: string;
   input?: FrameInputMetadata;
   post_url?: string;

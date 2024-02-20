@@ -13,8 +13,8 @@ import { parseFrameDetails } from './utils';
  * @returns The raw string HTML for a frame.
  */
  
-export async function getFrameMetadata (frameDetails: FrameHTMLType, config?: PinataConfig): Promise<string> {
-  const metadata: Record<string, string> = await parseFrameDetails(frameDetails, config);
+export function getFrameMetadata (frameDetails: FrameHTMLType, config?: PinataConfig): string {
+  const metadata: Record<string, string> = parseFrameDetails(frameDetails, config);
   let metaTags = '';
   for (const key in metadata) {
     metaTags += `<meta name="${key}" content="${metadata[key]}">\n`;

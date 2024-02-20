@@ -6,6 +6,7 @@ import { PinataConfig } from "./types";
 import { decodedFrameMetadata } from "./decodedFrameMetadata";
 import { Message } from "@farcaster/hub-nodejs";
 import { sendAnalytics } from "./sendAnalytics";
+import { convertUrlToIPFS } from "./convertUrlToIPFS";
 
 export class PinataFDK {
     config: PinataConfig | undefined
@@ -14,7 +15,7 @@ export class PinataFDK {
         this.config = config
     }
 
-    getFrameMetadata(metadata: FrameHTMLType): Promise<string>{
+    getFrameMetadata(metadata: FrameHTMLType): string{
         return getFrameMetadata(metadata, this.config)
     }
 
@@ -25,10 +26,14 @@ export class PinataFDK {
         return validateFrameMessage(payload)
     }
 
-    decodedFrameMetadata(metadata: FrameHTMLType): Promise<Record<string, string>>{
+    decodedFrameMetadata(metadata: FrameHTMLType): Record<string, string>{
         return decodedFrameMetadata(metadata, this.config)
     }
     sendAnalytics(frame_id: string, frame_data: FrameActionPayload): Promise<{ success: boolean }>{
         return sendAnalytics(frame_id, frame_data, this.config)
+    }
+
+    convertUrlToIPFS(url: string): Promise<string | undefined>{
+        return convertUrlToIPFS(url, this.config)
     }
 }

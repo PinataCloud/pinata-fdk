@@ -13,6 +13,8 @@
   ],
   "scripts": {
     "build": "tsup",
+    "changelog": "auto-changelog -u && git add CHANGELOG.md",
+    "version": "auto-changelog -p && git add CHANGELOG.md",
     "postbuild": "cp src/pin.js dist/pin.js",
     "test": "jest"
   },
@@ -40,6 +42,7 @@
     "@farcaster/core": "^0.13.8",
     "@farcaster/hub-nodejs": "^0.11.0",
     "app-root-path": "^3.1.0",
+    "auto-changelog": "^2.4.0",
     "axios": "^1.6.7",
     "form-data": "^4.0.0",
     "path": "^0.12.7"

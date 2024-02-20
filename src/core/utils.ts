@@ -58,7 +58,7 @@ export function isValidVersion(version: string): boolean {
   return true;
 }
 
-export const parseFrameDetails = async (frameDetails: FrameHTMLType, config?: PinataConfig): Promise<Record<string, string>> => {
+export const parseFrameDetails = (frameDetails: FrameHTMLType, config?: PinataConfig): Record<string, string> => {
    const {
     buttons,
     image,
@@ -75,17 +75,7 @@ export const parseFrameDetails = async (frameDetails: FrameHTMLType, config?: Pi
     metadata["og:image"] = `https://${config.pinata_gateway}/ipfs/${cid}`;
     metadata['fc:frame:image'] = `https://${config.pinata_gateway}/ipfs/${cid}`;
     }
-    else if (image && image.ipfs && config && config.pinata_jwt) {
-    const res = await uploadByURL(image.url, config);
-      if(res && res.IpfsHash && config.pinata_gateway){
-        metadata["og:image"] = `https://${config.pinata_gateway}/ipfs/${res.IpfsHash}`;
-        metadata['fc:frame:image'] = `https://${config.pinata_gateway}/ipfs/${res.IpfsHash}`;
-      }
-      else{
-        throw new Error("Error uploading image to IPFS");
-      }
-    }
-    else if (image && !image.ipfs && !cid) {
+    else if (image && image.url) {
     metadata["og:image"] = image.url;
     metadata['fc:frame:image'] = image.url;
     } 
