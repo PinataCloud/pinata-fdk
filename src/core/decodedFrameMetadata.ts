@@ -15,7 +15,7 @@ import { parseFrameDetails } from './utils';
  */
  
  
-export async function decodedFrameMetadata (frameDetails: FrameHTMLType, config?: PinataConfig): Promise<Record<string, string>> {
-    const metadata: Record<string, string> = await parseFrameDetails(frameDetails, config);
+export function decodedFrameMetadata (frameDetails: FrameHTMLType, config?: PinataConfig): Record<string, string> {
+    const metadata: Record<string, string> =  parseFrameDetails(frameDetails, config);
     return metadata;
 };
