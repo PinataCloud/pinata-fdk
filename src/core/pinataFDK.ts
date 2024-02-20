@@ -29,8 +29,8 @@ export class PinataFDK {
     decodedFrameMetadata(metadata: FrameHTMLType): Record<string, string>{
         return decodedFrameMetadata(metadata, this.config)
     }
-    sendAnalytics(frame_id: string, frame_data: FrameActionPayload): Promise<{ success: boolean }>{
-        return sendAnalytics(frame_id, frame_data, this.config)
+    sendAnalytics(frame_id: string, frame_data: FrameActionPayload, custom_id?: string): Promise<{ success: boolean }>{
+        return sendAnalytics(frame_id, frame_data, this.config, custom_id)
     }
 
     convertUrlToIPFS(url: string): Promise<string | undefined>{

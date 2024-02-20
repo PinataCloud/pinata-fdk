@@ -3,11 +3,13 @@ import { FrameActionPayload, PinataConfig} from './types';
 
 /**
  * This function sends frame data to track analytics.
+ * @param frame_id: The id representing the frame.
  * @param frame_data: The Frame Action data produced by Farcasater (req.body)
+ * @param custom_id: (Optional) 
  * @returns Success message boolean.
  */
 
-export async function sendAnalytics(frame_id: string, frame_data: FrameActionPayload, config: PinataConfig | undefined) {
+export async function sendAnalytics(frame_id: string, frame_data: FrameActionPayload, config: PinataConfig | undefined, custom_id?: string) {
     if(!config){
       throw new Error('Pinata configuration required to send analytics.')
     }    
@@ -23,7 +25,8 @@ export async function sendAnalytics(frame_id: string, frame_data: FrameActionPay
                 },
                 body: JSON.stringify({
                     data: frame_data,
-                    frame_id: frame_id
+                    frame_id: frame_id,
+                    custom_id: custom_id
                 }),
             }
         );
