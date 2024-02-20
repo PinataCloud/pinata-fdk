@@ -103,6 +103,7 @@ type FrameInputMetadata = {
 There are two different ways to set the images of your frame metadata. 
 
 ⚡️ Raw URL 
+<br/>
 ⚡️ CID
 
 ### Raw URL
