@@ -72,8 +72,8 @@ export const parseFrameDetails = (frameDetails: FrameHTMLType, config?: PinataCo
     'fc:frame': 'vNext',
     };
     if(cid && config){
-    metadata["og:image"] = `https://${config.pinata_gateway}/ipfs/${cid}`;
-    metadata['fc:frame:image'] = `https://${config.pinata_gateway}/ipfs/${cid}`;
+    metadata["og:image"] = `${config.pinata_gateway}/ipfs/${cid}`;
+    metadata['fc:frame:image'] = `${config.pinata_gateway}/ipfs/${cid}`;
     }
     else if (image && image.url) {
     metadata["og:image"] = image.url;

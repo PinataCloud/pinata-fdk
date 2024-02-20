@@ -15,7 +15,7 @@ export async function convertUrlToIPFS(url: string, config: PinataConfig | undef
     try {
         const res = await uploadByURL(url, config);
         if(res.IpfsHash){
-            return `https://${config.pinata_gateway}/ipfs/${res.IpfsHash}`;
+            return `${config.pinata_gateway}/ipfs/${res.IpfsHash}`;
         }
     } catch (error) {
         throw new Error("Error uploading url to ipfs: " + error);

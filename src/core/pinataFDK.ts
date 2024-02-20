@@ -8,13 +8,24 @@ import { Message } from "@farcaster/hub-nodejs";
 import { sendAnalytics } from "./sendAnalytics";
 import { convertUrlToIPFS } from "./convertUrlToIPFS";
 
+
+const formatConfig = (config: PinataConfig | undefined) => {
+    let gateway = config?.pinata_gateway;
+    if(config && gateway){
+        if(gateway && !gateway.startsWith('https://')){
+            gateway = `https://${gateway}`;
+        }
+        config.pinata_gateway = gateway;
+    }
+    return config
+}
+
 export class PinataFDK {
     config: PinataConfig | undefined
 
     constructor(config?: PinataConfig) {
-        this.config = config
+        this.config = formatConfig(config)
     }
-
     getFrameMetadata(metadata: FrameHTMLType): string{
         return getFrameMetadata(metadata, this.config)
     }
