@@ -150,7 +150,7 @@ const address = await fdk.getAddressForFid(20591);
 ```
 ## getUserByFid()
 
-Returns the connected Ethereum address for an FID.
+Returns user data for an FID.
 
 ```javascript 
 const userData = await fdk.getUserByFid(20591);
