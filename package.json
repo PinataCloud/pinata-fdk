@@ -13,7 +13,6 @@
   ],
   "scripts": {
     "build": "tsup",
-    "changelog": "auto-changelog -u && git add CHANGELOG.md",
     "version": "auto-changelog -p && git add CHANGELOG.md",
     "postbuild": "cp src/pin.js dist/pin.js",
     "test": "jest"

@@ -3,7 +3,7 @@ import { uploadByURL } from "./utils";
 
 
 /**
- * This function sends frame data to track analytics.
+ * This function uploads a url to ipfs and returns a Pinata IPFS url.
  * @param url: The url to be uploaded to IPFS.
  * @returns Pinata IPFS URL for the uploaded url.
  */

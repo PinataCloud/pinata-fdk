@@ -7,6 +7,8 @@ import { decodedFrameMetadata } from "./decodedFrameMetadata";
 import { Message } from "@farcaster/hub-nodejs";
 import { sendAnalytics } from "./sendAnalytics";
 import { convertUrlToIPFS } from "./convertUrlToIPFS";
+import { getUserByFid } from "./getUserByFid";
+import { getAddressForFid } from "./getAddressForFid";
 
 
 const formatConfig = (config: PinataConfig | undefined) => {
@@ -46,5 +48,13 @@ export class PinataFDK {
 
     convertUrlToIPFS(url: string): Promise<string | undefined>{
         return convertUrlToIPFS(url, this.config)
+    }
+
+    getUserByFid(fid: number): Promise<{  fid: number; username: string; pfp: string; bio: string; }>{
+        return getUserByFid(fid)
+    }
+
+    getEthAddressForFid(fid: string): Promise<string>{
+        return getAddressForFid(fid)
     }
 }
