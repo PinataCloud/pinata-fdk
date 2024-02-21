@@ -24,7 +24,6 @@ import {PinataFDK} from "pinata-fdk";
 const fdk = new PinataFDK({
     pinata_jwt: "YOUR_PINATA_JWT",
     pinata_gateway: "YOUR_PINATA_GATEWAY"}, 
-    //do not include https:// in your gateway url
 );
 ```
 If you are only using the frame metadata functionality, you do not need to enter your credentials. 
@@ -43,14 +42,14 @@ The only required input is `cid` or `image`
 ```javascript
 type FrameHTMLType = {
   buttons?: [FrameButtonMetadata, ...FrameButtonMetadata[]];
-  image?: {url: string, ipfs?: boolean};
+  image?: {url: string};
   cid?: string;
   input?: FrameInputMetadata;
   post_url?: string;
   refresh_period?: number;
   aspect_ratio?: "1.91:1" | "1:1" 
 } & (
-  { image: {url: string, ipfs?: boolean}} | { cid: string }
+  { image: {url: string}} | { cid: string }
 );
 ```
 ```javascript 
@@ -69,7 +68,7 @@ type FrameInputMetadata = {
 
 ### Example Input
 ```javascript
- const frameMetadata = await fdk.getFrameMetadata({
+ const frameMetadata = fdk.getFrameMetadata({
     post_url: `your_domain/api/test`,
     input: {text: "Hello, world!"},
     aspect_ratio: "1.91:1",
@@ -101,38 +100,35 @@ type FrameInputMetadata = {
 ```
 
 ### Images for Frame Metadata
-There are three different ways to set the images of your frame metadata. 
-
-⚡️ IPFS Upload
+There are two different ways to set the images of your frame metadata. 
 
 ⚡️ Raw URL 
-
+<br/>
 ⚡️ CID
 
-
-###  IPFS Uploads
-```javascript
-const frameMetadata = await fdk.getFrameMetadata({
-    image: { url: "your_image_url", ipfs: true}
-  });
-
-//Must insert Pinata credentials when intializing SDK.  
-```
 ### Raw URL
 
 ```javascript
-const frameMetadata = await fdk.getFrameMetadata({
-    image: { url: "your_image_url", ipfs: false}
+const frameMetadata = fdk.getFrameMetadata({
+    image: { url: "your_image_url"}
   });
 ``` 
 ### CID
 ```javascript
-const frameMetadata = await fdk.getFrameMetadata({
+const frameMetadata = fdk.getFrameMetadata({
     cid: "QmX63EYiDk9cExrv4GDmZ5soJKkgqoUJv9LbtPyugLBtV2"
   });
   
 //Must insert Pinata credentials when intializing SDK.    
 ```
+## convertUrlToIPFS()
+
+Uploads an image to IPFS from a url.
+
+```javascript 
+ const ipfsUrl = await fdk.convertUrlToIPFS("https://example.com");
+```
+
 
 ## validateFrameMessage()
 
