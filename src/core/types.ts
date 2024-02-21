@@ -15,6 +15,13 @@ export type FrameInputMetadata = {
     text: string;
 };
 
+export type UserData = {
+  fid: number, 
+  username: string,
+  pfp: string,
+  bio: string
+}
+
 export type PinataConfig = {
   pinata_jwt: string;
   pinata_gateway: string;

@@ -1,6 +1,6 @@
 import { getFrameMetadata } from "./getFrameMetadata";
 import { validateFrameMessage } from "./validateFrameMessage";
-import { FrameHTMLType } from "./types";
+import { FrameHTMLType, UserData } from "./types";
 import { FrameActionPayload } from "./types";
 import { PinataConfig } from "./types";
 import { decodedFrameMetadata } from "./decodedFrameMetadata";
@@ -50,11 +50,11 @@ export class PinataFDK {
         return convertUrlToIPFS(url, this.config)
     }
 
-    getUserByFid(fid: number): Promise<{  fid: number; username: string; pfp: string; bio: string; }>{
+    getUserByFid(fid: number): Promise<UserData>{
         return getUserByFid(fid)
     }
 
-    getEthAddressForFid(fid: string): Promise<string>{
+    getEthAddressForFid(fid: number): Promise<string>{
         return getAddressForFid(fid)
     }
 }

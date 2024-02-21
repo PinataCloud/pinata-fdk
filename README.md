@@ -140,6 +140,29 @@ const { isValid, message } = await fdk.validateFrameMessage(body);
 
 ```
 
+## getAddressForFid()
+
+Returns the connected Ethereum address for an FID.
+
+```javascript 
+const address = await fdk.getAddressForFid(20591);
+
+```
+## getUserByFid()
+
+Returns the connected Ethereum address for an FID.
+
+```javascript 
+const userData = await fdk.getUserByFid(20591);
+// example output: 
+// {
+//   fid: 20591,
+//   username: 'kyletut',
+//   pfp: 'https://i.imgur.com/TLMFnH6.jpg',
+//   bio: 'Everyone is from somewhere. Cofounder and CEO of Pinata. https://www.pinata.cloud/farcaster'
+// }
+```
+
 ## Frame Analytics
 If you'd like to track the interactions your frame(s) receive over time, you can send analytics data that is made available on a dashboard inside your Pinata account. 
 <br> 
