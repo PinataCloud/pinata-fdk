@@ -1,7 +1,7 @@
 import { FrameActionPayload, PinataConfig} from './types';
 
 type DataObject = {
-    data: { messageBytes: string };
+    data: FrameActionPayload;
     frame_id: string;
     custom_id?: string; // Make custom_id optional
 }
@@ -19,12 +19,13 @@ export async function sendAnalytics(frame_id: string, frame_data: FrameActionPay
     if(!config){
       throw new Error('Pinata configuration required to send analytics.')
     } 
-    const data: DataObject = {
-        data: frame_data.trustedData,
+    const postData: DataObject = {
         frame_id: frame_id,
+        data: frame_data
+
     } 
     if (custom_id) {
-        data.custom_id = custom_id;
+        postData.custom_id = custom_id;
     }
 
     try {
@@ -36,7 +37,7 @@ export async function sendAnalytics(frame_id: string, frame_data: FrameActionPay
                     "Content-Type": "application/json",
                     "Authorization": `Bearer ${config?.pinata_jwt}`
                 },
-                body: JSON.stringify(data),
+                body: JSON.stringify(postData),
             }
         );
 
