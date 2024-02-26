@@ -1,5 +1,5 @@
 
-# Farcaster Frame Development Kit
+# Farcaster Development Kit
 
 An SDK to easily create Farcaster Frames, manage frame analytics and pin images to IPFS using Pinata. 
 
