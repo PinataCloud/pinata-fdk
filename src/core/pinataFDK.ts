@@ -1,6 +1,6 @@
 import { getFrameMetadata } from "./getFrameMetadata";
 import { validateFrameMessage } from "./validateFrameMessage";
-import { FrameHTMLType, UserData } from "./types";
+import { FrameHTMLType, ReplayResponse, UserData } from "./types";
 import { FrameActionPayload } from "./types";
 import { PinataConfig } from "./types";
 import { decodedFrameMetadata } from "./decodedFrameMetadata";
@@ -9,6 +9,7 @@ import { sendAnalytics } from "./sendAnalytics";
 import { convertUrlToIPFS } from "./convertUrlToIPFS";
 import { getUserByFid } from "./getUserByFid";
 import { getAddressForFid } from "./getAddressForFid";
+import { checkForReplays } from "./checkForReplay";
 
 
 const formatConfig = (config: PinataConfig | undefined) => {
@@ -57,4 +58,8 @@ export class PinataFDK {
     getEthAddressForFid(fid: number): Promise<string>{
         return getAddressForFid(fid)
     }
-}
+
+    checkForReplays(frame_id: string, frame_data: FrameActionPayload) : Promise<ReplayResponse> {
+        return checkForReplays(frame_id, frame_data, this.config)
+    }
+ }

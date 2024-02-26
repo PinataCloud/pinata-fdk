@@ -45,6 +45,13 @@ export type FrameButtonMetadata = {
   target?: string;
 }
 
+export interface ReplayResponse {
+  data: {
+    previously_used: boolean;
+    message_bytes: string;
+  }
+}
+
 
 export type FrameMetadataResponse = Record<string, string>;
 
