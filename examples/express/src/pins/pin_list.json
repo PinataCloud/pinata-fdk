@@ -1,0 +1,20 @@
+{
+  "pins": [
+    {
+      "fileName": "intro.png",
+      "cid": "QmQLhEwkN5b8QiWBFVnNq1nrHeJTue3nDRtXFJDND5YrM1"
+    },
+    {
+      "fileName": "initialize.png",
+      "cid": "Qmdx9WGFHyaoi1MbzFhJP4QW9aGLTBUxbtuWz9GUU9Gj2M"
+    },
+    {
+      "fileName": "get.png",
+      "cid": "QmduZnRh94DiTFmWjqeDhVPFQCC81Zy8CARrWREwjNc5JR"
+    },
+    {
+      "fileName": "post.png",
+      "cid": "QmbuKjs9wjPj63PLEtBwBCo7WYAYQZ2LFck5ZyHuoaLaaJ"
+    }
+  ]
+}
