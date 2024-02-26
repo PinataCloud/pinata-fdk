@@ -1,8 +1,16 @@
 {
   "pins": [
     {
+      "fileName": "xoxo_360.png",
+      "cid": "QmPESUwv2YpijXi2v6Dbyp4RaFUMVx4swQLMpswSRFQK92"
+    },
+    {
       "fileName": "pinnie.png",
       "cid": "QmYGS65BsDE7D4yw342GbGjF5LYgf73KnFXoYSwuSY7qL7"
+    },
+    {
+      "fileName": "valentine2.png",
+      "cid": "QmUANg1yx46DaQRiFpjzHHWuxvzqfzV7XSHN4fWRXc6Go8"
     },
     {
       "fileName": "valentine.png",
@@ -11,14 +19,6 @@
     {
       "fileName": "pinnie2.png",
       "cid": "QmR6vt6ufgABgHvXFPKc8p7GVSN3NGDZS7Bpe2ciAFokpV"
-    },
-    {
-      "fileName": "xoxo_360.png",
-      "cid": "QmPESUwv2YpijXi2v6Dbyp4RaFUMVx4swQLMpswSRFQK92"
-    },
-    {
-      "fileName": "valentine2.png",
-      "cid": "QmUANg1yx46DaQRiFpjzHHWuxvzqfzV7XSHN4fWRXc6Go8"
     }
   ]
 }

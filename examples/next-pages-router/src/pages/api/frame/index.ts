@@ -18,7 +18,7 @@ export default async function handler(
   // The GET request is the intial request to the frame from index.tsx.
   if (req.method === "GET") {
     try {
-    const frameMetadata = await fdk.getFrameMetadata({input: {text: "Send Pinnie a Valentine"}, buttons: [{label: "Send"}], cid: "QmPsnQz3RCZvQZdjXQ1GQK6kJAMc289CCJr9DqS8MexUrU", post_url: `${process.env.HOSTED_DOMAIN}/api/frame`,
+    const frameMetadata = fdk.getFrameMetadata({input: {text: "Send Pinnie a Valentine"}, buttons: [{label: "Send"}], cid: "QmPsnQz3RCZvQZdjXQ1GQK6kJAMc289CCJr9DqS8MexUrU", post_url: `${process.env.HOSTED_DOMAIN}/api/frame`,
   })
     const html = 
     `<!DOCTYPE html>
@@ -80,7 +80,7 @@ export default async function handler(
       //validate frame data
       const { isValid, message } = await fdk.validateFrameMessage(req.body);
       if(isValid){
-          const frameMetadata = await fdk.getFrameMetadata({image: {url: `${process.env.HOSTED_DOMAIN}/api/image?message=${inputText}`}, buttons: [{label: "View Code", action: "post_redirect"}], post_url: `${process.env.HOSTED_DOMAIN}/api/frame/redirect`})
+          const frameMetadata = fdk.getFrameMetadata({image: {url: `${process.env.HOSTED_DOMAIN}/api/image?message=${inputText}`}, buttons: [{label: "View Code", action: "post_redirect"}], post_url: `${process.env.HOSTED_DOMAIN}/api/frame/redirect`})
           const html = `<!DOCTYPE html>
           <html lang="en">
             <head>
