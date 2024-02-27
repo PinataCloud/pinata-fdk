@@ -48,6 +48,8 @@ You can use this function to easily create the Farcaster specific metadata neede
 - `post_url` - A string which contains a valid URL to send the Signature Packet to. (Optional)
 - `refresh_period` - A string representing the refresh period for the image used. (Optional)
 - `aspect_ratio` - A string representing the aspect ratio for the image used. (Optional)
+- `state` - An object (e.g. JSON) representing the state data for the frame. (Optional) 
+**Note:** state should only be included in response frames, not initial frames.
 
 ```javascript
 type FrameHTMLType = {
@@ -57,7 +59,8 @@ type FrameHTMLType = {
   input?: FrameInputMetadata;
   post_url?: string;
   refresh_period?: number;
-  aspect_ratio?: "1.91:1" | "1:1" 
+  aspect_ratio?: "1.91:1" | "1:1",
+  state?: object
 } & (
   { image: {url: string}}| { cid: string }
 );
@@ -87,7 +90,8 @@ type FrameInputMetadata = {
       { label: 'Button 3', action: "mint" },
       { label: 'Button 4', action: "link" },
     ],
-    cid: "<YOUR_CID>"
+    cid: "<YOUR_CID>", 
+    state: {counter: 1}
   });
   ```
 #### Response 
@@ -106,6 +110,7 @@ type FrameInputMetadata = {
 <meta name="fc:frame:button:4" content="Button 4">
 <meta name="fc:frame:button:4:action" content="link">
 <meta name="fc:frame:post_url" content="<YOUR_DOMAIN>/api/test">
+<meta name="fc:frame:state" content="%7B%22counter%22%3A1%7D">
 ```
 
 #### Images for `getFrameMetadata`

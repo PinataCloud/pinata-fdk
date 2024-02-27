@@ -34,7 +34,8 @@ export type FrameHTMLType = {
   input?: FrameInputMetadata;
   post_url?: string;
   refresh_period?: number;
-  aspect_ratio?: "1.91:1" | "1:1" 
+  aspect_ratio?: "1.91:1" | "1:1", 
+  state?: object
 } & (
   { image: {url: string}} | { cid: string }
 );
