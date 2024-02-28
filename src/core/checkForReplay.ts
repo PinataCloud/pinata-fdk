@@ -1,36 +1,34 @@
 import { FrameActionPayload, PinataConfig} from './types';
 
 type DataObject = {
-    data: FrameActionPayload;
+    fid: number;
     frame_id: string;
-    custom_id?: string; // Make custom_id optional
+    cast_hash: string;
+    message_bytes: string;    
 }
 
 
 /**
- * This function sends frame data to track analytics.
+ * This function sends frame data to and checks if the frame's message signature has been used before.
  * @param frame_id: The id representing the frame.
- * @param frame_data: The Frame Action data produced by Farcasater.
- * @param custom_id: A unique identifier to segment requests within the specified frame (Optional) 
+ * @param frame_data: The Frame Action data produced by Farcasater. 
  * @returns Success message boolean.
  */
 
-export async function sendAnalytics(frame_id: string, frame_data: FrameActionPayload, config: PinataConfig | undefined, custom_id?: string) {
+export async function checkForReplays(frame_id: string, frame_data: FrameActionPayload, config: PinataConfig | undefined) {
     if(!config){
       throw new Error('Pinata configuration required to send analytics.')
     } 
     const postData: DataObject = {
         frame_id: frame_id,
-        data: frame_data
-
+        fid: frame_data.untrustedData.fid,
+        cast_hash: frame_data.untrustedData.messageHash,
+        message_bytes: frame_data.trustedData.messageBytes
     } 
-    if (custom_id) {
-        postData.custom_id = custom_id;
-    }
 
     try {
         const result = await fetch(
-            "https://api.pinata.cloud/farcaster/frames/interactions",
+            "https://api.pinata.cloud/v3/farcaster/frame_message_signature_replay",
             {
                 method: "POST",
                 headers: {
@@ -41,11 +39,8 @@ export async function sendAnalytics(frame_id: string, frame_data: FrameActionPay
             }
         );
 
-        if (result.ok) {
-            return { success: true };
-        } else {            
-            throw new Error(`Request failed with status ${result.status}`);
-        }
+        const response = await result.json();
+        return response;
     } catch (error) {
         console.log(error);
         console.error("Error sending analytics:", error);
