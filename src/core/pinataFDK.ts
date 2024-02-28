@@ -4,7 +4,7 @@ import { FrameHTMLType, ReplayResponse, UserData } from "./types";
 import { FrameActionPayload } from "./types";
 import { PinataConfig } from "./types";
 import { decodedFrameMetadata } from "./decodedFrameMetadata";
-import { Message } from "@farcaster/hub-nodejs";
+import { Message } from "@farcaster/core";
 import { sendAnalytics } from "./sendAnalytics";
 import { convertUrlToIPFS } from "./convertUrlToIPFS";
 import { getUserByFid } from "./getUserByFid";

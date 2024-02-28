@@ -1,5 +1,6 @@
 import { FrameActionPayload } from "./types";
-import { getSSLHubRpcClient, Message } from "@farcaster/hub-nodejs";
+import { hexStringToUint8Array } from "./utils";
+import { Message } from "@farcaster/core";
 
 /**
  * Validates a frame message by querying a Farcaster hub.
@@ -10,14 +11,24 @@ export async function validateFrameMessage(body: FrameActionPayload): Promise<{
   isValid: boolean;
   message: Message | undefined;
 }> {
-  const HUB_URL = "hub-grpc.pinata.cloud"
-  const client = getSSLHubRpcClient(HUB_URL);
-  const frameMessage = Message.decode(Buffer.from(body?.trustedData?.messageBytes || '', 'hex'));
-  const result = await client.validateMessage(frameMessage);  
-  if (result.isOk() && result.value.valid) {        
+  const hubBaseUrl = "https://hub.pinata.cloud";
+  const data = body.trustedData.messageBytes
+  const validateMessageResponse = await fetch(
+    `${hubBaseUrl}/v1/validateMessage`,
+    {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/octet-stream",
+      },
+      body: hexStringToUint8Array(data),
+    }
+  );
+  const result = await validateMessageResponse.json()
+
+  if (result && result.valid) {        
       return {
-      isValid: result.value.valid,
-      message: result.value.message
+      isValid: result.valid,
+      message: result.message
     };
   } else {
     return {
