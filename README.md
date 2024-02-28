@@ -48,7 +48,8 @@ You can use this function to easily create the Farcaster specific metadata neede
 - `post_url` - A string which contains a valid URL to send the Signature Packet to. (Optional)
 - `refresh_period` - A string representing the refresh period for the image used. (Optional)
 - `aspect_ratio` - A string representing the aspect ratio for the image used. (Optional)
-- `state` - An object (e.g. JSON) representing the state data for the frame. (Optional) 
+- `state` - An object (e.g. JSON) representing the state data for the frame. (Optional)
+  
 **Note:** state should only be included in response frames, not initial frames.
 
 ```javascript
