@@ -67,25 +67,27 @@ export const parseFrameDetails = (frameDetails: FrameHTMLType, config?: PinataCo
     input,
     post_url,
     refresh_period,
+    state,
   } = frameDetails;
     const metadata: Record<string, string> = {
     'fc:frame': 'vNext',
     };
     if(cid && config){
-    metadata["og:image"] = `${config.pinata_gateway}/ipfs/${cid}`;
-    metadata['fc:frame:image'] = `${config.pinata_gateway}/ipfs/${cid}`;
+      metadata["og:image"] = `${config.pinata_gateway}/ipfs/${cid}`;
+      metadata['fc:frame:image'] = `${config.pinata_gateway}/ipfs/${cid}`;
     }
     else if (image && image.url) {
-    metadata["og:image"] = image.url;
-    metadata['fc:frame:image'] = image.url;
+      metadata["og:image"] = image.url;
+      metadata['fc:frame:image'] = image.url;
     } 
+
     if (input) {
-    if (input.text.length > 32) {
-      throw new Error("Input text exceeds maximum length of 32 bytes.");
+      if (input.text.length > 32) {
+        throw new Error("Input text exceeds maximum length of 32 bytes.");
+      }
+      metadata['fc:frame:input:text'] = input.text;
     }
-    metadata['fc:frame:input:text'] = input.text;
-    }
-    // Set frame buttons
+
     if (buttons) {
     if (buttons.length > 4) {
       throw new Error("Maximum of 4 buttons allowed.");
@@ -108,21 +110,24 @@ export const parseFrameDetails = (frameDetails: FrameHTMLType, config?: PinataCo
       }
     });
     }
+
     if(aspect_ratio){
     metadata['fc:frame:image:aspect_ratio'] = aspect_ratio;
     }
 
-    // Set frame post URL
     if (post_url) {
     metadata['fc:frame:post_url'] = post_url;
     }
 
-    // Set frame refresh period
     if (refresh_period) {
     if (refresh_period < 0) {
       throw new Error("Refresh period must be a positive number.");
     }
     metadata['fc:frame:refresh_period'] = refresh_period.toString();
+    }
+    
+    if(state) {
+      metadata['fc:frame:state'] = encodeURIComponent(JSON.stringify(state))
     }
     return metadata;
 }
