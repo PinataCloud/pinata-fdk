@@ -320,6 +320,31 @@ await fdk.sendAnalytics(frame_id, frame_data, custom_id)
 
 After this is deployed you will see the analytics on the [Frame Analytics Page](https://app.pinata.cloud/frames-analytics). 
 
+### Frog Analytics Plug-in 🐸
+
+If you are using the Frog framework, you can utilize Pinata Frame analytics by importing our custom middleware function `analyticsMiddleware`. 
+
+``` typescript
+import { PinataFDK } from "pinata-fdk";
+const fdk = new PinataFDK({
+    pinata_jwt: "<YOUR_PINATA_JWT>",
+    pinata_gateway: "<YOUR_PINATA_GATEWAY>"}, 
+);
+
+const app = new Frog({
+  basePath: '/api',
+  // hubApiUrl: "https://hub.pinata.cloud"
+})
+
+const frameId = "my_frame"
+const customId = "my_custom_id" //optional
+
+app.use("/", async (context: any, next: any) => {
+  await fdk.analyticsMiddleware(context, frameId, next, customId)
+});
+
+```
+
 
 ## Pin Files from CLI
 ### npx pin
