@@ -1,14 +1,15 @@
-import { PinataFDK } from "../core/pinataFDK";
+import { PinataConfig } from "../core/types";
+import { sendAnalytics } from "../core/sendAnalytics";
 
 
-export async function analyticsMiddleware(context: any, frameId: string, pinataFDK: PinataFDK, next: any, customId?: string) {
+export async function analyticsMiddleware(context: any, frameId: string, config: PinataConfig, next: any, customId?: string) {
+    if(!config){
+        throw new Error('Pinata configuration required to send analytics.')
+      } 
     try {
         if (context.req.method === "POST") {
-            if(!pinataFDK.config?.pinata_jwt || !pinataFDK.config?.pinata_jwt){
-                throw new Error('Pinata configuration required to send analytics.')
-            }
             const body = await context.req.json();
-            const status = await pinataFDK.sendAnalytics(frameId, body, customId);
+            const status = await sendAnalytics(frameId, body, config, customId);
             return status;
         }
     await next();

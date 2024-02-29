@@ -10,6 +10,7 @@ import { convertUrlToIPFS } from "./convertUrlToIPFS";
 import { getUserByFid } from "./getUserByFid";
 import { getAddressForFid } from "./getAddressForFid";
 import { checkForReplays } from "./checkForReplay";
+import { analyticsMiddleware } from "../middleware/analyticsMiddleware"
 
 
 const formatConfig = (config: PinataConfig | undefined) => {
@@ -43,6 +44,7 @@ export class PinataFDK {
     decodedFrameMetadata(metadata: FrameHTMLType): Record<string, string>{
         return decodedFrameMetadata(metadata, this.config)
     }
+
     sendAnalytics(frame_id: string, frame_data: FrameActionPayload, custom_id?: string): Promise<{ success: boolean }>{
         return sendAnalytics(frame_id, frame_data, this.config, custom_id)
     }
@@ -61,5 +63,9 @@ export class PinataFDK {
 
     checkForReplays(frame_id: string, frame_data: FrameActionPayload) : Promise<ReplayResponse> {
         return checkForReplays(frame_id, frame_data, this.config)
+    }
+
+    analyticsMiddleware(context: any, frameId: string, next: any, customId?: string) {
+        return analyticsMiddleware(context, frameId, next, this.config, customId)
     }
  }
