@@ -1,7 +1,7 @@
 import { getFrameMetadata } from "./getFrameMetadata";
 import { validateFrameMessage } from "./validateFrameMessage";
 import { FrameHTMLType, ReplayResponse, UserData } from "./types";
-import { FrameActionPayload } from "./types";
+import { FrameActionPayload, AnalyticsOptions } from "./types";
 import { PinataConfig } from "./types";
 import { decodedFrameMetadata } from "./decodedFrameMetadata";
 import { Message } from "@farcaster/core";
@@ -65,7 +65,7 @@ export class PinataFDK {
         return checkForReplays(frame_id, frame_data, this.config)
     }
 
-    analyticsMiddleware(context: any, frameId: string, next: any, customId?: string) {
-        return analyticsMiddleware(context, frameId, next, this.config, customId)
+    analyticsMiddleware(options: AnalyticsOptions) {
+        return analyticsMiddleware(options, this.config)
     }
  }

@@ -91,3 +91,9 @@ export type FrameActionPayload = {
     inputText?: string;
   };
 };
+
+export type AnalyticsOptions = {
+  frameId: string;
+  customId?: string;
+};
+
