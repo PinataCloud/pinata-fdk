@@ -336,7 +336,7 @@ const app = new Frog({
   // hubApiUrl: "https://hub.pinata.cloud"
 })
 
-app.use("/", pinataFdk.analyticsMiddleware({ frameId: "frame_id", customId: "custom_id"}));
+app.use("/", fdk.analyticsMiddleware({ frameId: "frame_id", customId: "custom_id"}));
 ```
 
 
