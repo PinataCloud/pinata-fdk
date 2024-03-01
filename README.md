@@ -340,7 +340,7 @@ const frameId = "my_frame"
 const customId = "my_custom_id" //optional
 
 app.use("/", async (context: any, next: any) => {
-  await fdk.analyticsMiddleware(context, frameId, next, customId)
+  await fdk.analyticsMiddleware(frameId, customId)
 });
 
 ```
