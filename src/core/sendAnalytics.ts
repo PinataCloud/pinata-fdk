@@ -46,10 +46,9 @@ export async function sendAnalytics(frame_id: string, frame_data: FrameActionPay
         } else {            
             throw new Error(`Request failed with status ${result.status}`);
         }
-    } catch (error) {
+    } catch (error: any) {
         console.log(error);
-        console.error("Error sending analytics:", error);
-        return { success: false };
+        throw new Error(error);
     }
 }
 
