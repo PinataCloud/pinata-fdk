@@ -1,7 +1,6 @@
 import { getFrameMetadata } from "./getFrameMetadata";
 import { validateFrameMessage } from "./validateFrameMessage";
-import { FrameHTMLType, ReplayResponse, UserData } from "./types";
-import { FrameActionPayload, AnalyticsOptions } from "./types";
+import { FrameHTMLType, ReplayResponse, UserData, FrameActionPayload, AnalyticsOptions } from "./types";
 import { PinataConfig } from "./types";
 import { decodedFrameMetadata } from "./decodedFrameMetadata";
 import { Message } from "@farcaster/core";
@@ -34,7 +33,7 @@ export class PinataFDK {
         return getFrameMetadata(metadata, this.config)
     }
 
-    validateFrameMessage(payload: FrameActionPayload): Promise<{
+    async validateFrameMessage(payload: FrameActionPayload): Promise<{
         isValid: boolean;
         message: Message | undefined;
       }>{
@@ -45,27 +44,27 @@ export class PinataFDK {
         return decodedFrameMetadata(metadata, this.config)
     }
 
-    sendAnalytics(frame_id: string, frame_data: FrameActionPayload, custom_id?: string): Promise<{ success: boolean }>{
+    async sendAnalytics(frame_id: string, frame_data: FrameActionPayload, custom_id?: string): Promise<{ success: boolean }>{
         return sendAnalytics(frame_id, frame_data, this.config, custom_id)
     }
 
-    convertUrlToIPFS(url: string): Promise<string | undefined>{
+    async convertUrlToIPFS(url: string): Promise<string | undefined>{
         return convertUrlToIPFS(url, this.config)
     }
 
-    getUserByFid(fid: number): Promise<UserData>{
+    async getUserByFid(fid: number): Promise<UserData>{
         return getUserByFid(fid)
     }
 
-    getEthAddressForFid(fid: number): Promise<string>{
+    async getEthAddressForFid(fid: number): Promise<string>{
         return getAddressForFid(fid)
     }
 
-    checkForReplays(frame_id: string, frame_data: FrameActionPayload) : Promise<ReplayResponse> {
+    async checkForReplays(frame_id: string, frame_data: FrameActionPayload) : Promise<ReplayResponse> {
         return checkForReplays(frame_id, frame_data, this.config)
     }
 
-    analyticsMiddleware(options: AnalyticsOptions) {
+    async analyticsMiddleware(options: AnalyticsOptions) {
         return analyticsMiddleware(options, this.config)
     }
  }
