@@ -33,7 +33,7 @@ export class PinataFDK {
         return getFrameMetadata(metadata, this.config)
     }
 
-    async validateFrameMessage(payload: FrameActionPayload): Promise<{
+    validateFrameMessage(payload: FrameActionPayload): Promise<{
         isValid: boolean;
         message: Message | undefined;
       }>{
@@ -44,27 +44,27 @@ export class PinataFDK {
         return decodedFrameMetadata(metadata, this.config)
     }
 
-    async sendAnalytics(frame_id: string, frame_data: FrameActionPayload, custom_id?: string): Promise<{ success: boolean }>{
+    sendAnalytics(frame_id: string, frame_data: FrameActionPayload, custom_id?: string): Promise<{ success: boolean }>{
         return sendAnalytics(frame_id, frame_data, this.config, custom_id)
     }
 
-    async convertUrlToIPFS(url: string): Promise<string | undefined>{
+    convertUrlToIPFS(url: string): Promise<string | undefined>{
         return convertUrlToIPFS(url, this.config)
     }
 
-    async getUserByFid(fid: number): Promise<UserData>{
+    getUserByFid(fid: number): Promise<UserData>{
         return getUserByFid(fid)
     }
 
-    async getEthAddressForFid(fid: number): Promise<string>{
+    getEthAddressForFid(fid: number): Promise<string>{
         return getAddressForFid(fid)
     }
 
-    async checkForReplays(frame_id: string, frame_data: FrameActionPayload) : Promise<ReplayResponse> {
+    checkForReplays(frame_id: string, frame_data: FrameActionPayload) : Promise<ReplayResponse> {
         return checkForReplays(frame_id, frame_data, this.config)
     }
 
-    async analyticsMiddleware(options: AnalyticsOptions) {
+    analyticsMiddleware(options: AnalyticsOptions) {
         return analyticsMiddleware(options, this.config)
     }
  }
