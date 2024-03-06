@@ -20,4 +20,4 @@ yarn-error.log*
 # typescript
 *.tsbuildinfo
 
-.env.local
+.dev.vars

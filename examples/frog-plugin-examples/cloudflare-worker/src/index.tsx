@@ -1,15 +1,13 @@
 import { Button, Frog, TextInput } from 'frog'
 import { serveStatic } from 'hono/cloudflare-workers'
 import { PinataFDK } from 'pinata-fdk'
-import { config } from 'dotenv'
-config()
 
 export const app = new Frog({
   // Supply a Hub API URL to enable frame verification.
   // hubApiUrl: "https://hub.pinata.cloud"
 })
 
-export const fdk = new PinataFDK({ pinata_jwt: process.env.PINATA_JWT!, pinata_gateway: process.env.PINATA_GATEWAY! })
+export const fdk = new PinataFDK({ pinata_jwt: import.meta.env.PINATA_JWT!, pinata_gateway: import.meta.env.PINATA_GATEWAY! })
 app.use("/", fdk.analyticsMiddleware({ frameId: "frog-cloudflare-example", customId: "frog-cloudflare-example-custom"}));
 
 

@@ -8,7 +8,6 @@
     "wrangler:deploy": "wrangler deploy --minify src/index.tsx"
   },
   "dependencies": {
-    "dotenv": "^16.4.5",
     "frog": "latest",
     "hono": "^4",
     "pinata-fdk": "^3.5.6"
