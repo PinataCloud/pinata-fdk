@@ -42,7 +42,8 @@ export type FrameHTMLType = {
 
 export type FrameButtonMetadata = {
   label: string;
-  action?: "post" | "post_redirect" | "mint" | "link";
+  action?: "post" | "post_redirect" | "mint" | "link" | 
+  "tx";
   target?: string;
 }
 
