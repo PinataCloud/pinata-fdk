@@ -1,5 +1,5 @@
-import { CastId, Message } from "@farcaster/core";
-import { FrameActionPayload, FrameButtonMetadata, FrameHTMLType, PinataConfig } from "./types";
+import {  FrameButtonMetadata, FrameHTMLType, PinataConfig } from "./types";
+import { CastId} from "@farcaster/core";
 
 export function bytesToHexString(bytes: Uint8Array): `0x${string}` {
   return ("0x" + Buffer.from(bytes).toString("hex")) as `0x${string}`;
@@ -24,16 +24,6 @@ export function hexStringToUint8Array(hexstring: string): Uint8Array {
   );
 }
 
-/**
- * Extracts a Farcaster Message from the trustedData bytes in the `POST` body payload
- */
-export function getFrameMessageFromRequestBody(
-  body: FrameActionPayload
-): Message {
-  return Message.decode(
-    Buffer.from(body?.trustedData?.messageBytes ?? "", "hex")
-  );
-}
 
 /**
  * Validates whether the version param is valid
