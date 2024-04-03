@@ -6,6 +6,15 @@ import {
   UserData,
   FrameActionPayload,
   AnalyticsOptions,
+  WarpcastPayload,
+  SignedKeyRequest,
+  SignerList,
+  CastRequest,
+  CastResponse,
+  CastDelete,
+  LikeCast,
+  RecastCast,
+  FollowUser,
 } from "./types";
 import { PinataConfig } from "./types";
 import { decodedFrameMetadata } from "./decodedFrameMetadata";
@@ -20,6 +29,14 @@ import { createSigner } from "./createSigner";
 import { pollSigner } from "./pollSigner";
 import { createSponsoredSigner } from "./createSponsoredSigner";
 import { getSigners } from "./getSigners";
+import { sendCast } from "./sendCast";
+import { deleteCast } from "./deleteCast";
+import { likeCast } from "./likeCast";
+import { unlikeCast } from "./unlikeCast";
+import { recastCast } from "./recastCast";
+import { removeRecast } from "./removeRecast";
+import { followUser } from "./followUser";
+import { unfollowUser } from "./unfollowUser";
 
 const formatConfig = (config: PinataConfig | undefined) => {
   let gateway = config?.pinata_gateway;
@@ -84,20 +101,51 @@ export class PinataFDK {
     return analyticsMiddleware(options, this.config);
   }
 
-  createSigner() {
+  createSigner(): Promise<WarpcastPayload> {
     return createSigner(this.config);
   }
 
-  createSponsoredSigner(){
-    return createSponsoredSigner(this.config)
+  createSponsoredSigner(): Promise<WarpcastPayload> {
+    return createSponsoredSigner(this.config);
   }
 
-  pollSigner(token: string){
-    return pollSigner(token, this.config)
+  pollSigner(token: string): Promise<SignedKeyRequest> {
+    return pollSigner(token, this.config);
   }
 
-  getSigners(fid?: number){
-    return getSigners(this.config, fid)
+  getSigners(fid?: number): Promise<SignerList> {
+    return getSigners(this.config, fid);
   }
 
+  sendCast(cast: CastRequest): Promise<CastResponse> {
+    return sendCast(cast, this.config);
+  }
+
+  deleteCast(cast: CastDelete): Promise<CastResponse> {
+    return deleteCast(cast, this.config);
+  }
+
+  likeCast(cast: LikeCast): Promise<CastResponse> {
+    return likeCast(cast, this.config);
+  }
+
+  unlikeCast(cast: LikeCast): Promise<CastResponse> {
+    return unlikeCast(cast, this.config);
+  }
+
+  recastCast(cast: RecastCast): Promise<CastResponse> {
+    return recastCast(cast, this.config);
+  }
+
+  removeRecast(cast: RecastCast): Promise<CastResponse> {
+    return removeRecast(cast, this.config);
+  }
+
+  followUser(followRequest: FollowUser): Promise<CastResponse> {
+    return followUser(followRequest, this.config);
+  }
+
+  unfollowUser(followRequest: FollowUser): Promise<CastResponse> {
+    return unfollowUser(followRequest, this.config);
+  }
 }
