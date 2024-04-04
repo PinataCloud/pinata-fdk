@@ -145,3 +145,75 @@ export type SignerList = {
   signers: Signer[],
   next_page_token: string
 }
+
+export type CastRequest = {
+  signerId: string;
+  castAddBody: CastBody;
+}
+
+export type CastDelete = {
+  hash: string;
+  signerId: string;
+}
+
+export type CastDeleteRequest = {
+  signerId: string;
+  hash: string;
+}
+
+export type CastId = {
+  fid: number;
+  hash: string;
+}
+
+export type Embed = {
+  url?: string | null;
+  castId?: CastId | null;
+}
+
+export type CastBody = {
+  embedsDeprecated?: string[];
+  mentions?: number[];
+  parentCastId?: CastId | null;
+  parentUrl?: string | null;
+  text?: string | null;
+  mentionsPositions?: number[] | null;
+  embeds?: Embed[] | null;
+}
+
+export type CastResponse = {
+  data: {
+    type: string;
+    fid: number;
+    timestamp: number;
+    network: string;
+    castAddBody: {
+      embedsDeprecated: any[];
+      mentions: any[];
+      text: string;
+      mentionsPositions: any[];
+      embeds: any[];
+    };
+  };
+  hash: string;
+  hashScheme: string;
+  signature: string;
+  signatureScheme: string;
+  signer: string;
+  dataBytes: string;
+};
+
+export type LikeCast = {
+  hash: string,
+  signerId: string
+}
+
+export type RecastCast = {
+  hash: string;
+  signerId: string;
+}
+
+export type FollowUser = {
+  fid: number;
+  signerId: string;
+}

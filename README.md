@@ -72,7 +72,7 @@ After creating the signer the user would visit the `signerData.deep_link_url` wh
 
 ```typescript
 {
-  signer_id: "0873d8fe-4b87-427d-9e47-b312970929dc",
+  signer_id: "ba2d9f6d-7514-4967-8b52-5a040b7da4a1",
   token: "0xe3bffad26b16cf825f3d062d",
   deep_link_url: "farcaster://signed-key-request?token=0xe3bffad26b16cf825f3d062d",
   status: "pending_approval"
@@ -113,7 +113,7 @@ After creating the signer the user would visit the `signerData.deep_link_url` wh
 
 ```typescript
 {
-  signer_id: "9154bff0-96ed-4397-b8c1-4546eea48635",
+  signer_id: "ba2d9f6d-7514-4967-8b52-5a040b7da4a1",
   token: "0x21658c8fa560aca0f35a5e4a",
   deep_link_url: "farcaster://signed-key-request?token=0x21658c8fa560aca0f35a5e4a",
   status: "pending_approval"
@@ -183,7 +183,7 @@ const pollData = await fdk.getSigner(6023)
   signers: [
     {
       id: 57,
-      signer_uuid: "55e5d064-05d3-44c8-9825-992c51f81a48",
+      signer_uuid: "ba2d9f6d-7514-4967-8b52-5a040b7da4a1",
       fid: 6023,
       public_key: "dad973170c63739f7c812d188fab1df074eb1cd48facf6556e2ef9cbb76b4c18",
       signer_approved: true,
@@ -192,6 +192,332 @@ const pollData = await fdk.getSigner(6023)
   ],
   next_page_token: "eyJvZmZzZXQiOiI1NyJ9"
 }
+```
+
+## Farcaster Writes
+
+These methods can be used to create casts, react to them, or even follow users. All of them require a `signerId` which is a result of using Farcaster Auth, as well as the PinataFDK initialization with a Pinata JWT.
+
+All of these methods also return the same response, which is the direct response from the Pinata Hub.
+
+```typescript
+type CastResponse = {
+  data: {
+    type: string;
+    fid: number;
+    timestamp: number;
+    network: string;
+    castAddBody: {
+      embedsDeprecated: any[];
+      mentions: any[];
+      text: string;
+      mentionsPositions: any[];
+      embeds: any[];
+    };
+  };
+  hash: string;
+  hashScheme: string;
+  signature: string;
+  signatureScheme: string;
+  signer: string;
+  dataBytes: string;
+};
+```
+
+
+### `sendCast`
+
+With the `sendCast` method you can effortlessly post to Farcaster using a `signerId`. 
+
+#### Params
+
+- CastRequest - An object that contains the `signerId` and the `castAddBody` which follows the [Farcaster Hub standard for sending casts](https://docs.farcaster.xyz/reference/hubble/datatypes/messages#_3-1-castaddbody).
+
+```typescript
+type CastRequest = {
+  signerId: string;
+  castAddBody: CastBody;
+}
+
+type CastBody = {
+  embedsDeprecated?: string[];
+  mentions?: number[];
+  parentCastId?: CastId | null;
+  parentUrl?: string | null;
+  text?: string | null;
+  mentionsPositions?: number[] | null;
+  embeds?: Embed[] | null;
+}
+
+type CastId = {
+  fid: number;
+  hash: string;
+}
+
+type Embed = {
+  url?: string | null;
+  castId?: CastId | null;
+}
+```
+
+#### Example
+
+```typescript
+import { CastResponse, PinataFDK } from "pinata-fdk";
+
+const fdk = new PinataFDK({
+  pinata_jwt: `${process.env.PINATA_JWT}`,
+  pinata_gateway: "",
+});
+
+const res: CastResponse = await fdk.sendCast({
+  castAddBody: {
+    text: "Hello World from  !",
+    mentions: [6023],
+    mentionsPositions: [18],
+    parentUrl: "https://warpcast.com/~/channel/pinata",
+    embeds: [
+      {
+        url: "https://pinata.cloud"
+      },
+      {
+        castId: {
+          fid: 6023
+          hash: "0xcae8abd9badbb60c9b610ec264f42ed9f1785c6f",
+        }
+      }
+    ],
+    parentCastId: {
+      fid: 6023,
+      hash: "0xcae8abd9badbb60c9b610ec264f42ed9f1785c6f"
+    }
+  },
+  signerId: "ba2d9f6d-7514-4967-8b52-5a040b7da4a1"
+});
+```
+
+### `deleteCast`
+
+This method can delete a cast with a provided target hash.
+
+#### Params
+
+- hash - Target hash of the cast that needs to be deleted
+- signerId - Signer for the cast
+
+```typescript
+type CastDelete = {
+  hash: string;
+  signerId: string;
+}
+```
+
+#### Example
+
+```typescript
+import { CastResponse, PinataFDK } from "pinata-fdk";
+
+const fdk = new PinataFDK({
+  pinata_jwt: `${process.env.PINATA_JWT}`,
+  pinata_gateway: "",
+});
+
+const deleteReq: CastResponse = await fdk.deleteCast({
+  hash: "0x490889854a4f3233433b1ad0560f016f04feeeff",
+  signerId: "ba2d9f6d-7514-4967-8b52-5a040b7da4a1",
+};
+```
+
+### `likeCast`
+
+This method can like a cast based on the provided target hash.
+
+#### Params
+
+- hash - Hash of the target cast to be liked
+- signerId - Signer of the user liking the cast
+
+```typescript
+type LikeCast = {
+  hash: string,
+  signerId: string
+}
+```
+
+#### Example
+
+```typescript
+import { CastResponse, PinataFDK } from "pinata-fdk";
+
+const fdk = new PinataFDK({
+  pinata_jwt: `${process.env.PINATA_JWT}`,
+  pinata_gateway: "",
+});
+
+const likeReq: CastResponse = await fdk.likeCast({
+  hash: "0x490889854a4f3233433b1ad0560f016f04feeeff",
+  signerId: "ba2d9f6d-7514-4967-8b52-5a040b7da4a1",
+};
+```
+
+### `unlikeCast`
+
+If a cast is already liked by the user, this method will unlike it.
+
+#### Params
+
+- hash - Hash of the target cast to be unliked
+- signerId - Signer of the user unliking the cast
+
+```typescript
+type LikeCast = {
+  hash: string,
+  signerId: string
+}
+```
+
+#### Example
+
+```typescript
+import { CastResponse, PinataFDK } from "pinata-fdk";
+
+const fdk = new PinataFDK({
+  pinata_jwt: `${process.env.PINATA_JWT}`,
+  pinata_gateway: "",
+});
+
+const unlikeReq: CastResponse = await fdk.unlikeCast({
+  hash: "0x490889854a4f3233433b1ad0560f016f04feeeff",
+  signerId: "ba2d9f6d-7514-4967-8b52-5a040b7da4a1",
+};
+```
+
+### `recastCast`
+
+This method will recast a cast based on the target hash.
+
+#### Params
+
+- hash - Hash of the target cast to be recast
+- signerId - Signer of the user recasting target cast
+
+```typescript
+type RecastCast = {
+  hash: string;
+  signerId: string;
+}
+```
+
+#### Example
+
+```typescript
+import { CastResponse, PinataFDK } from "pinata-fdk";
+
+const fdk = new PinataFDK({
+  pinata_jwt: `${process.env.PINATA_JWT}`,
+  pinata_gateway: "",
+});
+
+const recastCastReq: CastResponse = await fdk.recastCast({
+  hash: "0x490889854a4f3233433b1ad0560f016f04feeeff",
+  signerId: "ba2d9f6d-7514-4967-8b52-5a040b7da4a1",
+};
+```
+
+### `removeRecast`
+
+Works just like `recastCast` but removes an existing recast based on a hash of the target cast.
+
+#### Params
+
+- hash - Hash of the target cast to remove recast
+- signerId - Signer of the user removing the recast
+
+```typescript
+type RecastCast = {
+  hash: string;
+  signerId: string;
+}
+```
+
+#### Example
+
+```typescript
+import { CastResponse, PinataFDK } from "pinata-fdk";
+
+const fdk = new PinataFDK({
+  pinata_jwt: `${process.env.PINATA_JWT}`,
+  pinata_gateway: "",
+});
+
+const removeRecastReq: CastResponse = await fdk.removeRecast({
+  hash: "0x490889854a4f3233433b1ad0560f016f04feeeff",
+  signerId: "ba2d9f6d-7514-4967-8b52-5a040b7da4a1",
+};
+```
+
+### `followUser`
+
+Follows a target user based on their FID.
+
+#### Params
+
+- fid - The FID of the target user to follow
+- signerId - The signer for the user following the target user
+
+```typescript
+type FollowUser = {
+  fid: number;
+  signerId: string;
+}
+```
+
+#### Example
+
+```typescript
+import { CastResponse, PinataFDK } from "pinata-fdk";
+
+const fdk = new PinataFDK({
+  pinata_jwt: `${process.env.PINATA_JWT}`,
+  pinata_gateway: "",
+});
+
+const followUserReq: CastResponse = await fdk.followUser({
+  fid: 6023,
+  signerId: "ba2d9f6d-7514-4967-8b52-5a040b7da4a1",
+};
+```
+
+### `unfollowUser`
+
+Unfollows a user that the signer is already following.
+
+#### Params
+
+- fid - The FID of the target user to unfollow
+- signerId - The signer for the user unfollowing the target user
+
+```typescript
+type FollowUser = {
+  fid: number;
+  signerId: string;
+}
+```
+
+#### Example
+
+```typescript
+import { CastResponse, PinataFDK } from "pinata-fdk";
+
+const fdk = new PinataFDK({
+  pinata_jwt: `${process.env.PINATA_JWT}`,
+  pinata_gateway: "",
+});
+
+const unfollowUserReq: CastResponse = await fdk.unfollowUser({
+  fid: 6023,
+  signerId: "ba2d9f6d-7514-4967-8b52-5a040b7da4a1",
+};
 ```
 
 ## Frames
