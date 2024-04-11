@@ -25,8 +25,8 @@ export type UserData = {
 export type PinataConfig = {
   pinata_jwt: string;
   pinata_gateway: string;
-  appFid?: string;
-  appMnemonic?: string;
+  app_fid?: string;
+  app_mnemonic?: string;
 };
 
 export type FrameHTMLType = {

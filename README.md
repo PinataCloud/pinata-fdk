@@ -34,9 +34,9 @@ const fdk = new PinataFDK();
 
 ## Farcaster Auth
 
-The FDK makes it easy to give your Farcaster app write access for users so you can do things like sending casts or following other users. To get a better concept of the flow of Farcaster Auth, check out the guide [here](https://docs.pinata.cloud/farcaster/farcaster-auth).
+The FDK makes it easy to give your Farcaster app write access for users so you can do things like sending casts or following other users. To get a better concept of the flow of Farcaster Auth, check out the guide [here](/farcaster/farcaster-auth).
 
-### `createSigner`
+## `createSigner`
 
 This function will create a signer with Farcaster Auth, sign the key with your Farcaster App mnemonic phrase and FID, then send a request to Warpcast to register the signer. For more info on those please see [these docs](https://docs.pinata.cloud/farcaster/farcaster-auth#getting-started). 
 
@@ -48,19 +48,20 @@ import { PinataFDK } from "pinata-fdk"
 const fdk = new PinataFDK({
   pinata_jwt: 'YOUR_PINATA_JWT',
   pinata_gateway: 'YOUR_GATEWAY',
-  appFid: 'APP_FID',
-  appMnemonic: 'APP_MNEMONIC'
+  app_fid: 'APP_FID',
+  app_mnemonic: 'APP_MNEMONIC'
 })
 ```
-#### Example
+
+### Example
 ```typescript
 import { PinataFDK } from "pinata-fdk"
 
 const fdk = new PinataFDK({
   pinata_jwt: `${process.env.PINATA_JWT}`,
   pinata_gateway: "",
-  appFid: `${process.env.APP_FID}`
-  appMnemonic: `${process.env.FARCASTER_DEVELOPER_MNEMONIC}`
+  app_fid: `${process.env.APP_FID}`
+  app_mnemonic: `${process.env.FARCASTER_DEVELOPER_MNEMONIC}`
 })
 
 const signerData: WarpcastPayload = await fdk.createSigner() 
@@ -68,7 +69,7 @@ const signerData: WarpcastPayload = await fdk.createSigner()
 
 After creating the signer the user would visit the `signerData.deep_link_url` which would open Warpcast on their account to approve the signer. The user will have to pay warps since it is not sponsored.
 
-#### Response
+### Response
 
 ```typescript
 {
@@ -79,9 +80,9 @@ After creating the signer the user would visit the `signerData.deep_link_url` wh
 }
 ```
 
-### `createSponsoredSigner`
+## `createSponsoredSigner`
 
-Sponsored signers is very similar to `createSigner` except it does not require using your own Farcaster FID and mnemonic. Instead the key is created and signed by Pinata. You will still need to designate the `appFid` in your `PinataFDK` instance.
+Sponsored signers is very similar to `createSigner` except the end user will not have to pay warps to approve the signer. However there may be limits to how many sponsored signers you can use based on your Pinata plan. You still need the `app_mnemonic` to sign the key being used.
 
 ```typescript
 import { PinataFDK } from "pinata-fdk"
@@ -89,11 +90,12 @@ import { PinataFDK } from "pinata-fdk"
 const fdk = new PinataFDK({
   pinata_jwt: 'YOUR_PINATA_JWT',
   pinata_gateway: 'YOUR_GATEWAY',
-  appFid: 'APP_FID',
+  app_fid: 'APP_FID',
+  app_mnemonic: 'APP_MNEMONIC'
 })
 ```
 
-#### Example
+### Example
 
 ```typescript
 import { PinataFDK } from "pinata-fdk"
@@ -101,7 +103,8 @@ import { PinataFDK } from "pinata-fdk"
 const fdk = new PinataFDK({
   pinata_jwt: `${process.env.PINATA_JWT}`,
   pinata_gateway: "",
-  appFid: `${process.env.APP_FID}`
+  app_fid: `${process.env.APP_FID}`,
+  app_mnemonic: `${process.env.FARCASTER_DEVELOPER_MNEMONIC}`
 })
 
 const signerData: WarpcastPayload = await fdk.createSponsoredSigner() 
@@ -109,7 +112,7 @@ const signerData: WarpcastPayload = await fdk.createSponsoredSigner()
 
 After creating the signer the user would visit the `signerData.deep_link_url` which would open Warpcast on their account to approve the signer. Since it is sponsored the user will not have to pay warps to sign in, however it will show Pinata as the app.
 
-#### Response
+### Response
 
 ```typescript
 {
@@ -120,15 +123,15 @@ After creating the signer the user would visit the `signerData.deep_link_url` wh
 }
 ```
 
-### `pollSigner`
+## `pollSigner`
 
 After creating a signer and giving the user the `deep_link_url` you will want to poll the signer to see if they have approved it and record the response to your account.
 
-#### Params
+### Params
 
 `pollSigner` takes a parameter of `token` which is provided in either `createSigner` or `createSponsoredSigner`.
 
-#### Example
+### Example
 
 ```typescript
 import { PinataFDK } from "pinata-fdk"
@@ -136,13 +139,13 @@ import { PinataFDK } from "pinata-fdk"
 const fdk = new PinataFDK({
   pinata_jwt: `${process.env.PINATA_JWT}`,
   pinata_gateway: "",
-  appFid: `${process.env.APP_FID}`
+  app_fid: `${process.env.APP_FID}`
 })
 
 const pollData = await fdk.pollSigner("0x21658c8fa560aca0f35a5e4a") 
 ```
 
-#### Returns
+### Returns
 
 ```typescript
 {
@@ -155,15 +158,15 @@ const pollData = await fdk.pollSigner("0x21658c8fa560aca0f35a5e4a")
 }
 ```
 
-### `getSigner`
+## `getSigner`
 
 After you have created a signer and it has been polled as complete, you can fetch the signer at any time using `getSigner`
 
-#### Params
+### Params
 
 - fid - A number/integer of the FID you want to query. (Optional)
 
-#### Example
+### Example
 
 ```typescript
 import { PinataFDK } from "pinata-fdk"
@@ -171,12 +174,12 @@ import { PinataFDK } from "pinata-fdk"
 const fdk = new PinataFDK({
   pinata_jwt: `${process.env.PINATA_JWT}`,
   pinata_gateway: "",
-  appFid: `${process.env.APP_FID}`
+  app_fid: `${process.env.APP_FID}`
 })
 
 const pollData = await fdk.getSigner(6023) 
 ```
-#### Returns
+### Returns
 
 ```typescript
 {
