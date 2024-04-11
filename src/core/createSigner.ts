@@ -15,7 +15,7 @@ import { mnemonicToAccount } from "viem/accounts";
 
 export const createSigner = async (config: PinataConfig | undefined) => {
   try {
-    const appFid = config?.appFid || "";
+    const appFid = config?.app_fid || "";
     const res = await fetch("https://api.pinata.cloud/v3/farcaster/signers", {
       method: "POST",
       headers: {
