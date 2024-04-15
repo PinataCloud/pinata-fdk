@@ -181,6 +181,89 @@ export type CastBody = {
   embeds?: Embed[] | null;
 }
 
+export type UsersResponse = {
+  data: {
+    users: User[];
+    next_page_token: string;
+  }
+}
+
+export type User = {
+  fid: number,
+  custody_address: string,
+  recovery_address: string,
+  following_count: number,
+  follower_count: number,
+  verifications: string[],
+  bio: string,
+  display_name: string,
+  pfp_url: string,
+  username: string
+}
+
+export type CastsResponse = {
+  data: {
+    casts: Cast[];
+    next_page_token: string;
+  }
+}
+
+export type CastByHashResponse = {
+  data: {
+    cast: Cast;
+  }
+}
+
+export type UserByFidResponse = {
+  data: {
+    user: User;
+  }
+}
+
+export type Cast = {
+        fid: number,
+        hash: string,
+        short_hash: string,
+        thread_hash: string,
+        parent_hash: string,
+        parent_url: null | string,
+        root_parent_url: string,
+        parent_author: {
+          uid: number,
+          fid: number,
+          custody_address: string,
+          recovery_address: string,
+          following_count: number,
+          follower_count: number,
+          verifications: string[],
+          bio: string,
+          display_name: string,
+          pfp_url: string,
+          username: string,
+        },
+        author: {
+          uid: number,
+          fid: number,
+          custody_address: string,
+          recovery_address: string,
+          following_count: number,
+          follower_count: number ,
+          verifications: string[],
+          bio: string,
+          display_name: string,
+          pfp_url: string,
+          username: string
+        },
+        content: string,
+        timestamp: string,
+        embeds: [],
+        reactions: {},
+        replies: {
+          count: number,
+        },
+        mentioned_profiles: []
+      }
+
 export type CastResponse = {
   data: {
     type: string;
@@ -216,4 +299,67 @@ export type RecastCast = {
 export type FollowUser = {
   fid: number;
   signerId: string;
+}
+
+export type ChannelsFollowingResponse = {
+  data: {
+    channels: ChannelFollowing[];
+    next_page_token: string;
+  }
+}
+
+export type ChannelFollowing = {
+	id: string;  
+	name: string;  
+	url: string;  
+	description: string;  
+	image_url: string;
+	lead_fid: number;
+  created_at: number;
+	host_fids: number[];
+	follower_count: number;   
+	followed_at: number;
+}
+
+export type ChannelFollowingStatusResponse = {
+  data: {
+    following: boolean;
+    followed_at: number;
+  }
+}
+
+
+export type ChannelsResponse = {
+  data: {
+    channels: Channel[];
+    next_page_token: string;
+  }
+}
+
+export type Channel = {
+	name: string;  
+	url: string;  
+  display_name: string;
+	description: string;  
+	image_url: string;
+	lead_fid: number;
+  created_at: number;
+	host_fids: number[];
+	follower_count: number;   
+}
+
+export type ChannelResponse = { 
+  data: Channel;
+}
+
+export type  ChannelFollowersResponse = {
+  data: {
+    followers: Follower[];
+    next_page_token: string;
+  }
+}
+
+export type Follower = {
+  fid: number; 
+  followed_at: number;
 }

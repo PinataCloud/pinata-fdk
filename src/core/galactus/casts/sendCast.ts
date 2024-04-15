@@ -1,24 +1,26 @@
 /**
- * This function will unfollow a user by FID
- * @param fid: FID for the target user
+ * This function lets users send casts with signIds created from Farcaster Auth
+ * @param cast: Follows the CastAddBody structure of the Farcaster Hub API
  * @returns CastResponse: The raw response from the Farcaster Hub
  */
 
-import { PinataConfig, CastResponse, FollowUser } from "./types";
+import { PinataConfig, CastRequest, CastResponse } from "../../types";
 
-export const unfollowUser = async (
-  req: FollowUser,
+export const sendCast = async (
+  cast: CastRequest,
   config: PinataConfig | undefined,
 ) => {
   try {
+    const data = JSON.stringify(cast)
     const request = await fetch(
-      `https://api.pinata.cloud/v3/farcaster/follow/${req.fid}?signerId=${req.signerId}`,
+      `https://api.pinata.cloud/v3/farcaster/casts`,
       {
-        method: "DELETE",
+        method: "POST",
         headers: {
           "Content-Type": "application/json",
           Authorization: `Bearer ${config?.pinata_jwt}`,
-        }
+        },
+        body: data
       },
     );
     const res = await request.json();

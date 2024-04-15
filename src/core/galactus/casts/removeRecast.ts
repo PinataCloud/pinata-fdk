@@ -1,12 +1,12 @@
 /**
- * This function will recast a cast based on the hash of the cast
- * @param CastDelete: Required fields are hash of the cast and the signerId of the user who is recasting
+ * This function will remove a recast based on the hash of the cast
+ * @param CastDelete: Required fields are hash of the cast and the signerId of the user who is removing the recast
  * @returns CastResponse: The raw response from the Farcaster Hub
  */
 
-import { PinataConfig, CastResponse, RecastCast } from "./types";
+import { PinataConfig, CastResponse, RecastCast } from "../../types";
 
-export const recastCast = async (
+export const removeRecast = async (
   req: RecastCast,
   config: PinataConfig | undefined,
 ) => {
@@ -14,7 +14,7 @@ export const recastCast = async (
     const request = await fetch(
       `https://api.pinata.cloud/v3/farcaster/casts/${req.hash}/reactions/recast?signerId=${req.signerId}`,
       {
-        method: "POST",
+        method: "DELETE",
         headers: {
           "Content-Type": "application/json",
           Authorization: `Bearer ${config?.pinata_jwt}`,

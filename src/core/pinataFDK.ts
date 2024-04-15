@@ -15,28 +15,45 @@ import {
   LikeCast,
   RecastCast,
   FollowUser,
+  CastByHashResponse,
+  CastsResponse,
+  UsersResponse,
+  UserByFidResponse,
+  ChannelsResponse,
+  ChannelsFollowingResponse,
+  ChannelFollowingStatusResponse,
+  ChannelResponse,
+  ChannelFollowersResponse
 } from "./types";
 import { PinataConfig } from "./types";
 import { decodedFrameMetadata } from "./decodedFrameMetadata";
 import { Message } from "@farcaster/core";
-import { sendAnalytics } from "./sendAnalytics";
-import { convertUrlToIPFS } from "./convertUrlToIPFS";
-import { getUserByFid } from "./getUserByFid";
+import { sendAnalytics } from "./analytics/sendAnalytics";
+import { convertUrlToIPFS } from "./ipfs/convertUrlToIPFS";
 import { getAddressForFid } from "./getAddressForFid";
 import { checkForReplays } from "./checkForReplay";
 import { analyticsMiddleware } from "../middleware/analyticsMiddleware";
-import { createSigner } from "./createSigner";
-import { pollSigner } from "./pollSigner";
-import { createSponsoredSigner } from "./createSponsoredSigner";
-import { getSigners } from "./getSigners";
-import { sendCast } from "./sendCast";
-import { deleteCast } from "./deleteCast";
-import { likeCast } from "./likeCast";
-import { unlikeCast } from "./unlikeCast";
-import { recastCast } from "./recastCast";
-import { removeRecast } from "./removeRecast";
-import { followUser } from "./followUser";
-import { unfollowUser } from "./unfollowUser";
+import { createSigner } from "./galactus/auth/createSigner";
+import { pollSigner } from "./galactus/auth/pollSigner";
+import { createSponsoredSigner } from "./galactus/auth/createSponsoredSigner";
+import { getSigners } from "./galactus/auth/getSigners";
+import { sendCast } from "./galactus/casts/sendCast";
+import { deleteCast } from "./galactus/casts/deleteCast";
+import { likeCast } from "./galactus/casts/likeCast";
+import { unlikeCast } from "./galactus/casts/unlikeCast";
+import { recastCast } from "./galactus/casts/recastCast";
+import { removeRecast } from "./galactus/casts/removeRecast";
+import { followUser } from "./galactus/users/followUser";
+import { unfollowUser } from "./galactus/users/unfollowUser";
+import { getCasts } from "./galactus/casts/getCasts";
+import { getCastByHash } from "./galactus/casts/getCastByHash";
+import { getUsers } from "./galactus/users/getUsers";
+import { getUserByFid } from "./galactus/users/getUserByFid";
+import { getChannelsFollowing } from "./galactus/users/getChannelsFollowing";
+import { getChannelsFollowingStatus } from "./galactus/users/getChannelFollowingStatus";
+import { getChannels } from "./galactus/channels/getChannels";
+import { getChannelByName } from "./galactus/channels/getChannelByName";
+import { getChannelFollowers } from "./galactus/channels/getChannelFollowers";
 
 const formatConfig = (config: PinataConfig | undefined) => {
   let gateway = config?.pinata_gateway;
@@ -82,10 +99,6 @@ export class PinataFDK {
     return convertUrlToIPFS(url, this.config);
   }
 
-  getUserByFid(fid: number): Promise<UserData> {
-    return getUserByFid(fid);
-  }
-
   getEthAddressForFid(fid: number): Promise<string> {
     return getAddressForFid(fid);
   }
@@ -101,6 +114,8 @@ export class PinataFDK {
     return analyticsMiddleware(options, this.config);
   }
 
+  //Auth
+
   createSigner(): Promise<WarpcastPayload> {
     return createSigner(this.config);
   }
@@ -115,6 +130,15 @@ export class PinataFDK {
 
   getSigners(fid?: number): Promise<SignerList> {
     return getSigners(this.config, fid);
+  }
+
+  //Casts
+  getCasts(pageToken?: string): Promise<CastsResponse> {
+    return getCasts(this.config, pageToken);
+  }
+
+  getCastByHash(hash: string): Promise<CastByHashResponse> {
+    return getCastByHash(hash, this.config);
   }
 
   sendCast(cast: CastRequest): Promise<CastResponse> {
@@ -141,6 +165,7 @@ export class PinataFDK {
     return removeRecast(cast, this.config);
   }
 
+  // Users
   followUser(followRequest: FollowUser): Promise<CastResponse> {
     return followUser(followRequest, this.config);
   }
@@ -148,4 +173,35 @@ export class PinataFDK {
   unfollowUser(followRequest: FollowUser): Promise<CastResponse> {
     return unfollowUser(followRequest, this.config);
   }
+
+  getUsers(pageToken?: string): Promise<UsersResponse> {
+    return getUsers(this.config, pageToken);
+  }
+
+  getUserByFid(fid: number): Promise<UserByFidResponse> {
+    return getUserByFid(fid, this.config);
+  }
+
+  getChannelsFollowing(fid: number): Promise<ChannelsFollowingResponse> {
+    return getChannelsFollowing(fid, this.config);
+  }
+
+  getChannelFollowingStatus(fid: number, name: string): Promise<ChannelFollowingStatusResponse> {
+    return getChannelsFollowingStatus(fid, name, this.config);
+  }
+  
+  //Channels
+   getChannels(pageToken?: string): Promise<ChannelsResponse> {
+    return getChannels(this.config, pageToken,);
+   }
+
+   getChannelByName(name: string): Promise<ChannelResponse> {
+    return getChannelByName(name, this.config);
+   }
+
+   getChannelFollowers(name: string, pageToken?: string): Promise<ChannelFollowersResponse> {
+    return getChannelFollowers(name, this.config, pageToken);
+   }
+
+
 }

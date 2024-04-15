@@ -4,7 +4,7 @@
  * @returns Signer UUID used in other parts of the Farcaster API, Public Key, and if the Signer is approved.
  */
 
-import { PinataConfig, SignedKeyRequest } from "./types";
+import { PinataConfig, SignedKeyRequest } from "../../types";
 
 export const pollSigner = async (
   token: string,
