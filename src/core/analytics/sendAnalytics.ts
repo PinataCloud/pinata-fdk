@@ -1,4 +1,4 @@
-import { FrameActionPayload, PinataConfig} from './types';
+import { FrameActionPayload, PinataConfig} from '../types';
 
 type DataObject = {
     data: FrameActionPayload;

@@ -1,18 +1,19 @@
 /**
- * This function sends a request to create a Farcaster Signer using Pinata Farcaster Auth. This is the sponsored flow which covers warps on the user's behalf and doesnt require the developer to sign a key
+ * This function sends a request to create a Farcaster Signer using Pinata Farcaster Auth. This is the unsponsored flow which requires signing a key.
  * @body appFid: The FID of the app account creating a signer, e.g. Supercast.
  * @returns Signer UUID used in other parts of the Farcaster API, Public Key, and if the Signer is approved.
  */
+
 import {
   PinataConfig,
   WarpcastPayload,
   SIGNED_KEY_REQUEST_TYPE,
   SIGNED_KEY_REQUEST_VALIDATOR_EIP_712_DOMAIN,
   SignerInfo,
-} from "./types";
+} from "../../types";
 import { mnemonicToAccount } from "viem/accounts";
 
-export const createSponsoredSigner = async (config: PinataConfig | undefined) => {
+export const createSigner = async (config: PinataConfig | undefined) => {
   try {
     const appFid = config?.app_fid || "";
     const res = await fetch("https://api.pinata.cloud/v3/farcaster/signers", {
@@ -32,7 +33,7 @@ export const createSponsoredSigner = async (config: PinataConfig | undefined) =>
       data: SignerInfo;
     } = signerInfo;
     const account = mnemonicToAccount(
-      config?.app_mnemonic!,
+      process.env.FARCASTER_DEVELOPER_MNEMONIC!,
     );
 
     const deadline = Math.floor(Date.now() / 1000) + 86400; // signature is valid for 1 day
@@ -51,7 +52,7 @@ export const createSponsoredSigner = async (config: PinataConfig | undefined) =>
     });
 
     const registerResponse = await fetch(
-      `https://api.pinata.cloud/v3/farcaster/register_signer_with_warpcast?sponsored=true`,
+      `https://api.pinata.cloud/v3/farcaster/register_signer_with_warpcast`,
       {
         method: "POST",
         headers: {

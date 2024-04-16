@@ -4,7 +4,7 @@
  * @returns CastResponse: The raw response from the Farcaster Hub
  */
 
-import { PinataConfig, CastResponse, LikeCast } from "./types";
+import { PinataConfig, CastResponse, LikeCast } from "../../types";
 
 export const unlikeCast = async (
   req: LikeCast,

@@ -7,7 +7,7 @@
 import {
   PinataConfig,
   SignerList,
-} from "./types";
+} from "../../types";
 
 export const getSigners = async (config: PinataConfig | undefined, fid?: number) => {
   try {

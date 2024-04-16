@@ -1,5 +1,5 @@
 import { AnalyticsOptions, PinataConfig } from "../core/types";
-import { sendAnalytics } from "../core/sendAnalytics";
+import { sendAnalytics } from "../core/analytics/sendAnalytics";
 import type { MiddlewareHandler } from "hono";
 
 

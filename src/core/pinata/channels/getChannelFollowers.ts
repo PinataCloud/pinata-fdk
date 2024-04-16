@@ -1,0 +1,37 @@
+/**
+ * This function fetchs all fids following a Farcaster channel.
+ * @param name: The name of the channel to fetch followers.
+ * @param pageToken: The page token to fetch the next page of users.
+ * @returns ChannelFollowersResponse: The raw response from the Pinata Farcaster API.
+ */
+
+import { PinataConfig, ChannelFollowersResponse} from "../../types";
+
+export const getChannelFollowers = async (
+  config: PinataConfig | undefined,
+  name: string,
+  pageToken?: string,
+) => {
+  try {
+    let url = `https://api.pinata.cloud/v3/farcaster/channels/${name}/followers`;
+    if(pageToken){
+        url = `${url}?pageToken=${pageToken}`
+    }
+    console.log("url", url )
+    const request = await fetch(
+      url,
+      {
+        method: "GET",
+        headers: {
+            "Content-Type": "application/json",
+            Authorization: `Bearer ${config?.pinata_jwt}`,
+            },      
+        },
+    );
+    const res = await request.json();
+    const resData: ChannelFollowersResponse = res.data
+    return resData
+  } catch (error) {
+    throw error;
+  }
+};

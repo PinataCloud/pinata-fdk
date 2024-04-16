@@ -1,5 +1,5 @@
-import { PinataConfig} from './types';
-import { uploadByURL } from "./utils";
+import { PinataConfig} from '../types';
+import { uploadByURL } from "../utils";
 
 
 /**
