@@ -12,7 +12,7 @@ export const getUserByFid = async (
 ) => {
   try {
     const request = await fetch(
-      `https://api.devpinata.cloud/v3/farcaster/users/${fid}`,
+      `https://api.pinata.cloud/v3/farcaster/users/${fid}`,
       {
         method: "GET",
         headers: {

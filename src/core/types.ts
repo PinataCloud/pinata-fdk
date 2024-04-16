@@ -199,6 +199,7 @@ export type User = {
   display_name: string,
   pfp_url: string,
   username: string
+  power_badge_user: boolean
 }
 
 export type CastsResponse = {
@@ -215,9 +216,7 @@ export type CastByHashResponse = {
 }
 
 export type UserByFidResponse = {
-  data: {
-    user: User;
-  }
+  data: User;
 }
 
 export type Cast = {
