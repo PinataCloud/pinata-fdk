@@ -1,5 +1,5 @@
-import { getChannelsFollowing } from "../src/core/pinata/users/getChannelsFollowing";
-import { PinataConfig, ChannelsFollowingResponse } from "../src";
+import { getChannelsFollowing } from "../../../src/core/pinata/users/getChannelsFollowing";
+import { PinataConfig, ChannelsFollowingResponse } from "../../../src";
 
 describe('getChannelsFollowing function', () => {
   let originalFetch: typeof fetch;

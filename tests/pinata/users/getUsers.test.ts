@@ -1,5 +1,5 @@
-import { getUsers } from "../src/core/pinata/users/getUsers";
-import { PinataConfig, PinataFDK, UsersResponse } from "../src";
+import { getUsers } from "../../../src/core/pinata/users/getUsers";
+import { PinataConfig, UsersResponse } from "../../../src";
 
 describe('getUsers function', () => {
   let originalFetch: typeof fetch;

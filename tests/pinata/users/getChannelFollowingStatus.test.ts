@@ -1,5 +1,5 @@
-import { PinataConfig, ChannelFollowingStatusResponse } from "../src";
-import { getChannelsFollowingStatus } from "../src/core/pinata/users/getChannelFollowingStatus";
+import { PinataConfig, ChannelFollowingStatusResponse } from "../../../src";
+import { getChannelsFollowingStatus } from "../../../src/core/pinata/users/getChannelFollowingStatus";
 
 describe('getChannelsFollowingStatus function', () => {
   let originalFetch: typeof fetch;
@@ -38,7 +38,6 @@ describe('getChannelsFollowingStatus function', () => {
         },
       }
     );
-    console.log(result)
 
     expect(result).toEqual(mockResponse.data);
   });
