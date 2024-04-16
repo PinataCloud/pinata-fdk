@@ -7,8 +7,8 @@
 import { PinataConfig, ChannelResponse} from "../../types";
 
 export const getChannelByName = async (
-  name: string,
   config: PinataConfig | undefined,
+  name: string,
 ) => {
   try {
     const request = await fetch(

@@ -3,7 +3,6 @@ import { validateFrameMessage } from "./validateFrameMessage";
 import {
   FrameHTMLType,
   ReplayResponse,
-  UserData,
   FrameActionPayload,
   AnalyticsOptions,
   WarpcastPayload,
@@ -182,26 +181,25 @@ export class PinataFDK {
     return getUserByFid(fid, this.config);
   }
 
-  getChannelsFollowing(fid: number): Promise<ChannelsFollowingResponse> {
-    return getChannelsFollowing(fid, this.config);
+  getChannelsFollowing(fid: number, pageToken?: string): Promise<ChannelsFollowingResponse> {
+    return getChannelsFollowing(this.config, fid, pageToken);
   }
 
   getChannelFollowingStatus(fid: number, name: string): Promise<ChannelFollowingStatusResponse> {
-    return getChannelsFollowingStatus(fid, name, this.config);
+    return getChannelsFollowingStatus(this.config, fid, name);
   }
   
   //Channels
-   getChannels(pageToken?: string): Promise<ChannelsResponse> {
-    return getChannels(this.config, pageToken,);
+  getChannels(pageToken?: string): Promise<ChannelsResponse> {
+    return getChannels(this.config, pageToken);
    }
 
-   getChannelByName(name: string): Promise<ChannelResponse> {
-    return getChannelByName(name, this.config);
-   }
+  getChannelByName(name: string): Promise<ChannelResponse> {
+    return getChannelByName(this.config, name);
+  }
 
-   getChannelFollowers(name: string, pageToken?: string): Promise<ChannelFollowersResponse> {
-    return getChannelFollowers(name, this.config, pageToken);
-   }
-
+  getChannelFollowers(name: string, pageToken?: string): Promise<ChannelFollowersResponse> {
+    return getChannelFollowers(this.config, name, pageToken);
+  }
 
 }

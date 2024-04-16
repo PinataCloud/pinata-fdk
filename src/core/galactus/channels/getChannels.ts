@@ -1,5 +1,5 @@
 /**
- * This function fetchs all Farcaster channels from the Pinata Farcaster API.
+ * This function fetchs all Farcaster channels.
  * @param pageToken: The page token to fetch the next page of channels.
  * @returns ChannelsResponse: The raw response from the Pinata Farcaster API.
  */
@@ -11,8 +11,12 @@ export const getChannels = async (
   pageToken?: string, 
 ) => {
   try {
+    let url = `https://api.pinata.cloud/v3/farcaster/channels`
+      if(pageToken){
+        url = url.concat(`?pageToken=${pageToken}`)
+      }
     const request = await fetch(
-      `https://api.pinata.cloud/v3/farcaster/channels?pageToken=${pageToken}`,
+      url,
       {
         method: "GET",
         headers: {

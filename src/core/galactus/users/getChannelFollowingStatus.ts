@@ -9,13 +9,13 @@
 import { ChannelFollowingStatusResponse, PinataConfig} from "../../types";
 
 export const getChannelsFollowingStatus = async (
+  config: PinataConfig | undefined,
   fid: number, 
   name: string,
-  config: PinataConfig | undefined,
 ) => {
   try {
     const request = await fetch(
-      `https://api.pinata.cloud/v3/farcaster/users/${fid}/channels_following/${name}/status`,
+      `https://api.devpinata.cloud/v3/farcaster/users/${fid}/channels_following/${name}/status`,
       {
         method: "GET",
         headers: {

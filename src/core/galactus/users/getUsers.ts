@@ -1,5 +1,5 @@
 /**
- * This function fetchs all Farcaster users from the Pinata Farcaster API.
+ * This function fetchs all Farcaster users.
  * @param pageToken: The page token to fetch the next page of users.
  * @returns UsersResponse: The raw response from the Pinata Farcaster API.
  */
@@ -11,8 +11,12 @@ export const getUsers = async (
   pageToken?: string, 
 ) => {
   try {
+    let url = `https://api.devpinata.cloud/v3/farcaster/users`;
+    if(pageToken){
+        url = url.concat(`?pageToken=${pageToken}`)
+    }
     const request = await fetch(
-      `https://api.pinata.cloud/v3/farcaster/users?pageToken=${pageToken}`,
+      url,
       {
         method: "GET",
         headers: {

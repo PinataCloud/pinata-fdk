@@ -7,13 +7,16 @@
 import { ChannelsFollowingResponse, PinataConfig} from "../../types";
 
 export const getChannelsFollowing = async (
-  fid: number, 
   config: PinataConfig | undefined,
+  fid: number, 
+  pageToken?: string,
 ) => {
   try {
-    const request = await fetch(
-      `https://api.pinata.cloud/v3/farcaster/users/${fid}/channels_following`,
-      {
+    let url = `https://api.devpinata.cloud/v3/farcaster/users/${fid}/channels_following`;
+    if(pageToken){
+        url = url.concat(`?pageToken=${pageToken}`)
+    }
+    const request = await fetch(url , {
         method: "GET",
         headers: {
             "Content-Type": "application/json",
