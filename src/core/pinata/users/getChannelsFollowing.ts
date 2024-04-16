@@ -12,7 +12,7 @@ export const getChannelsFollowing = async (
   pageToken?: string,
 ) => {
   try {
-    let url = `https://api.devpinata.cloud/v3/farcaster/users/${fid}/channels_following`;
+    let url = `https://api.pinata.cloud/v3/farcaster/users/${fid}/channels_following`;
     if(pageToken){
         url = url.concat(`?pageToken=${pageToken}`)
     }

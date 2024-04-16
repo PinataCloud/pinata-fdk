@@ -11,7 +11,7 @@ export const getUsers = async (
   pageToken?: string, 
 ) => {
   try {
-    let url = `https://api.devpinata.cloud/v3/farcaster/users`;
+    let url = `https://api.pinata.cloud/v3/farcaster/users`;
     if(pageToken){
         url = url.concat(`?pageToken=${pageToken}`)
     }
