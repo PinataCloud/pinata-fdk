@@ -137,7 +137,7 @@ export class PinataFDK {
   }
 
   getCastByHash(hash: string): Promise<CastByHashResponse> {
-    return getCastByHash(hash, this.config);
+    return getCastByHash(this.config, hash);
   }
 
   sendCast(cast: CastRequest): Promise<CastResponse> {

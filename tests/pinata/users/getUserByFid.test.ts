@@ -1,5 +1,5 @@
-import { getUserByFid } from "../src/core/pinata/users/getUserByFid";
-import { PinataConfig, UserByFidResponse } from "../src";
+import { getUserByFid } from "../../../src/core/pinata/users/getUserByFid";
+import { PinataConfig, UserByFidResponse } from "../../../src";
 
 describe('getUserByFid function', () => {
   let originalFetch: typeof fetch;
