@@ -13,7 +13,7 @@
   ],
   "scripts": {
     "build": "tsup",
-    "version": "auto-changelog -p",
+    "vesion": "conventional-changelog -p angular -i CHANGELOG.md -s -r 0",
     "postbuild": "cp src/pin.js dist/pin.js",
     "test": "jest",
     "prepare": "husky"
