@@ -17,13 +17,14 @@ describe('getChannelsFollowingStatus function', () => {
     const channelName = "pinata";
     const mockConfig: PinataConfig = { pinata_jwt: 'test_jwt', pinata_gateway: "test.cloud" };
     const mockResponse: ChannelFollowingStatusResponse =   {
-        data: {
+      data: {
         following: true,
         followed_at: 23425322
-      }}
+      }
+    }
 
     global.fetch = jest.fn().mockResolvedValueOnce({
-      json: jest.fn().mockResolvedValueOnce({ data: mockResponse }),
+      json: jest.fn().mockResolvedValueOnce( mockResponse),
     });
 
     const result = await getChannelsFollowingStatus(mockConfig, fid, channelName);

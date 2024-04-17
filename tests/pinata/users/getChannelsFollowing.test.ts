@@ -38,7 +38,7 @@ describe('getChannelsFollowing function', () => {
         }
 
     global.fetch = jest.fn().mockResolvedValueOnce({
-      json: jest.fn().mockResolvedValueOnce({ data: mockResponse }),
+      json: jest.fn().mockResolvedValueOnce(mockResponse),
     });
 
     const result = await getChannelsFollowing(mockConfig, fid);
@@ -85,7 +85,7 @@ describe('getChannelsFollowing function', () => {
     };
 
     global.fetch = jest.fn().mockResolvedValueOnce({
-      json: jest.fn().mockResolvedValueOnce({ data: mockResponse }),
+      json: jest.fn().mockResolvedValueOnce(mockResponse),
     });
 
     const result = await getChannelsFollowing(mockConfig, fid, pageToken);
@@ -100,7 +100,7 @@ describe('getChannelsFollowing function', () => {
         },
       }
     );
-
+    
     expect(result).toEqual(mockResponse.data);
   });
 

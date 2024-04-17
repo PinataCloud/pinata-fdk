@@ -17,7 +17,6 @@ export const getChannelFollowers = async (
     if(pageToken){
         url = `${url}?pageToken=${pageToken}`
     }
-    console.log("url", url )
     const request = await fetch(
       url,
       {

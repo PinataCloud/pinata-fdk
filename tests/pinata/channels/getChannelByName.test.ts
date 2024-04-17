@@ -35,7 +35,7 @@ describe('getChannelByName function', () => {
       json: jest.fn().mockResolvedValueOnce(mockResponse),
     });
 
-    const result = await getChannelByName(mockConfig, mockChannelName);
+    const result: ChannelResponse = await getChannelByName(mockConfig, mockChannelName);
 
     expect(global.fetch).toHaveBeenCalledWith(
       `https://api.pinata.cloud/v3/farcaster/channels/${mockChannelName}`,
