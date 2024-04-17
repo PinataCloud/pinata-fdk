@@ -7,8 +7,8 @@
 import { PinataConfig, CastByHashResponse } from "../../types";
 
 export const getCastByHash = async (
-  hash: string, 
   config: PinataConfig | undefined,
+  hash: string, 
 ) => {
   try {
     const request = await fetch(

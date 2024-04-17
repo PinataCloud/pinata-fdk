@@ -210,9 +210,7 @@ export type CastsResponse = {
 }
 
 export type CastByHashResponse = {
-  data: {
-    cast: Cast;
-  }
+  data: Cast;
 }
 
 export type UserByFidResponse = {
@@ -223,10 +221,10 @@ export type Cast = {
         fid: number,
         hash: string,
         short_hash: string,
-        thread_hash: string,
-        parent_hash: string,
+        thread_hash: string | null,
+        parent_hash: string | null,
         parent_url: null | string,
-        root_parent_url: string,
+        root_parent_url: string | null,
         parent_author: {
           uid: number,
           fid: number,
@@ -239,7 +237,7 @@ export type Cast = {
           display_name: string,
           pfp_url: string,
           username: string,
-        },
+        } | null,
         author: {
           uid: number,
           fid: number,
@@ -252,10 +250,14 @@ export type Cast = {
           display_name: string,
           pfp_url: string,
           username: string
+          power_badge_user: boolean
+
         },
         content: string,
         timestamp: string,
         embeds: [],
+        mentions: [],
+        mentionPositions: [],
         reactions: {},
         replies: {
           count: number,

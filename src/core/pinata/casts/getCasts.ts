@@ -11,8 +11,12 @@ export const getCasts = async (
   pageToken?: string, 
 ) => {
   try {
+    let url = `https://api.pinata.cloud/v3/farcaster/casts`
+      if(pageToken){
+        url = url.concat(`?pageToken=${pageToken}`)
+      }
     const request = await fetch(
-      `https://api.pinata.cloud/v3/farcaster/casts?pageToken=${pageToken}`,
+      url,
       {
         method: "GET",
         headers: {
