@@ -1,6 +1,6 @@
 {
   "name": "pinata-fdk",
-  "version": "3.7.2",
+  "version": "3.8.1",
   "description": "pinata cloud sdk for farcaster frame development",
   "main": "./dist/index.js",
   "module": "./dist/index.mjs",
@@ -13,7 +13,8 @@
   ],
   "scripts": {
     "build": "tsup",
-    "version": "auto-changelog -p",
+    "version": "conventional-changelog -p angular -i CHANGELOG.md -s -r 0 && git add CHANGELOG.md",
+    "postversion": "git push origin --all; git push origin",
     "postbuild": "cp src/pin.js dist/pin.js",
     "test": "jest",
     "prepare": "husky"
