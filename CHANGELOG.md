@@ -1,4 +1,8 @@
-# 3.8.0 (2024-04-17)
+## [3.8.1](https://github.com/PinataCloud/pinata-fdk/compare/v3.8.0...v3.8.1) (2024-04-17)
+
+
+
+# [3.8.0](https://github.com/PinataCloud/pinata-fdk/compare/a2c41a72b837d86cd4d5e4cbf2ea2a11803d0e41...v3.8.0) (2024-04-17)
 
 
 ### Bug Fixes
