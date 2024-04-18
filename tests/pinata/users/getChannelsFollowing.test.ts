@@ -1,5 +1,5 @@
 import { getChannelsFollowing } from "../../../src/core/pinata/users/getChannelsFollowing";
-import { PinataConfig, ChannelsFollowingResponse } from "../../../src";
+import { PinataConfig } from "../../../src";
 
 describe('getChannelsFollowing function', () => {
   let originalFetch: typeof fetch;
@@ -15,7 +15,7 @@ describe('getChannelsFollowing function', () => {
   it('should fetch channels following without page token', async () => {
     const fid = 3;
     const mockConfig: PinataConfig = { pinata_jwt: 'test_jwt', pinata_gateway: "test.cloud" };
-    const mockResponse: ChannelsFollowingResponse = {
+    const mockResponse = {
             data: {
                 channels: [
                     {
@@ -61,7 +61,7 @@ describe('getChannelsFollowing function', () => {
     const fid = 3;
     const pageToken = "mockPageToken";
     const mockConfig: PinataConfig = { pinata_jwt: 'test_jwt', pinata_gateway: "test.cloud" };
-    const mockResponse: ChannelsFollowingResponse = {
+    const mockResponse = {
         data: {
             channels: [
                 {

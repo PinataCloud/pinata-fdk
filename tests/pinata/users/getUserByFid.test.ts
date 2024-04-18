@@ -1,5 +1,5 @@
 import { getUserByFid } from "../../../src/core/pinata/users/getUserByFid";
-import { PinataConfig, UserByFidResponse } from "../../../src";
+import { PinataConfig } from "../../../src";
 
 describe('getUserByFid function', () => {
   let originalFetch: typeof fetch;
@@ -15,7 +15,7 @@ describe('getUserByFid function', () => {
   it('should fetch user by fid', async () => {
     const fid = 1;
     const mockConfig: PinataConfig = { pinata_jwt: 'test_jwt', pinata_gateway: "test.cloud" }
-    const mockResponse: UserByFidResponse = {
+    const mockResponse = {
         data: {
             fid: 1,
             custody_address: "0x8773442740c17c9d0f0b87022c722f9a136206ed",

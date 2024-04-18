@@ -3,10 +3,10 @@
  * @param fid: The fid of the user to check if they are following the channel.
  * @param name: The channel name to check the user's following status.
 
- * @returns ChannelFollowingStatusResponse: The raw response from the Pinata Farcaster API.
+ * @returns ChannelFollowingStatus: The raw response from the Pinata Farcaster API.
  */
 
-import { ChannelFollowingStatusResponse, PinataConfig} from "../../types";
+import { ChannelFollowingStatus, PinataConfig} from "../../types";
 
 export const getChannelsFollowingStatus = async (
   config: PinataConfig | undefined,
@@ -25,7 +25,7 @@ export const getChannelsFollowingStatus = async (
         },
     );
     const res = await request.json();
-    const resData: ChannelFollowingStatusResponse = res.data
+    const resData: ChannelFollowingStatus = res.data
     return resData
   } catch (error) {
     throw error;

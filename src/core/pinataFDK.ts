@@ -14,15 +14,15 @@ import {
   LikeCast,
   RecastCast,
   FollowUser,
-  CastByHashResponse,
-  CastsResponse,
-  UsersResponse,
-  UserByFidResponse,
-  ChannelsResponse,
-  ChannelsFollowingResponse,
-  ChannelFollowingStatusResponse,
-  ChannelResponse,
-  ChannelFollowersResponse
+  Cast,
+  Casts,
+  Users,
+  User,
+  Channels,
+  ChannelsFollowing,
+  ChannelFollowingStatus,
+  Channel,
+  ChannelFollowers
 } from "./types";
 import { PinataConfig } from "./types";
 import { decodedFrameMetadata } from "./decodedFrameMetadata";
@@ -132,11 +132,11 @@ export class PinataFDK {
   }
 
   //Casts
-  getCasts(pageToken?: string): Promise<CastsResponse> {
+  getCasts(pageToken?: string): Promise<Casts> {
     return getCasts(this.config, pageToken);
   }
 
-  getCastByHash(hash: string): Promise<CastByHashResponse> {
+  getCastByHash(hash: string): Promise<Cast> {
     return getCastByHash(this.config, hash);
   }
 
@@ -173,32 +173,32 @@ export class PinataFDK {
     return unfollowUser(followRequest, this.config);
   }
 
-  getUsers(pageToken?: string): Promise<UsersResponse> {
+  getUsers(pageToken?: string): Promise<Users> {
     return getUsers(this.config, pageToken);
   }
 
-  getUserByFid(fid: number): Promise<UserByFidResponse> {
+  getUserByFid(fid: number): Promise<User> {
     return getUserByFid(fid, this.config);
   }
 
-  getChannelsFollowing(fid: number, pageToken?: string): Promise<ChannelsFollowingResponse> {
+  getChannelsFollowing(fid: number, pageToken?: string): Promise<ChannelsFollowing> {
     return getChannelsFollowing(this.config, fid, pageToken);
   }
 
-  getChannelFollowingStatus(fid: number, name: string): Promise<ChannelFollowingStatusResponse> {
+  getChannelFollowingStatus(fid: number, name: string): Promise<ChannelFollowingStatus> {
     return getChannelsFollowingStatus(this.config, fid, name);
   }
   
   //Channels
-  getChannels(pageToken?: string): Promise<ChannelsResponse> {
+  getChannels(pageToken?: string): Promise<Channels> {
     return getChannels(this.config, pageToken);
    }
 
-  getChannelByName(name: string): Promise<ChannelResponse> {
+  getChannelByName(name: string): Promise<Channel> {
     return getChannelByName(this.config, name);
   }
 
-  getChannelFollowers(name: string, pageToken?: string): Promise<ChannelFollowersResponse> {
+  getChannelFollowers(name: string, pageToken?: string): Promise<ChannelFollowers> {
     return getChannelFollowers(this.config, name, pageToken);
   }
 

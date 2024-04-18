@@ -1,10 +1,10 @@
 /**
  * This function fetchs a specific cast by hash from the Pinata Farcaster API.
  * @param castHash: The hash of the cast to fetch.
- * @returns CastByHashResponse: The raw response from the Pinata API. 
+ * @returns Cast: The raw response from the Pinata API. 
  */
 
-import { PinataConfig, CastByHashResponse } from "../../types";
+import { PinataConfig, Cast } from "../../types";
 
 export const getCastByHash = async (
   config: PinataConfig | undefined,
@@ -22,7 +22,7 @@ export const getCastByHash = async (
         },
     );
     const res = await request.json();
-    const resData: CastByHashResponse = res.data
+    const resData: Cast = res.data
     return resData
   } catch (error) {
     throw error;

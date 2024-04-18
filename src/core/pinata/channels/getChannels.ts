@@ -1,10 +1,10 @@
 /**
  * This function fetchs all Farcaster channels.
  * @param pageToken: The page token to fetch the next page of channels.
- * @returns ChannelsResponse: The raw response from the Pinata Farcaster API.
+ * @returns Channels: The raw response from the Pinata Farcaster API.
  */
 
-import { ChannelsResponse, PinataConfig} from "../../types";
+import { Channels, PinataConfig} from "../../types";
 
 export const getChannels = async (
   config: PinataConfig | undefined,
@@ -26,7 +26,7 @@ export const getChannels = async (
         },
     );
     const res = await request.json();
-    const resData: ChannelsResponse = res.data
+    const resData: Channels = res.data
     return resData
   } catch (error) {
     throw error;

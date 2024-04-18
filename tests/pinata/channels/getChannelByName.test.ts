@@ -1,5 +1,5 @@
 import { getChannelByName } from "../../../src/core/pinata/channels/getChannelByName";
-import { ChannelResponse, PinataConfig } from "../../../src";
+import {PinataConfig } from "../../../src";
 
 describe('getChannelByName function', () => {
   let originalFetch: typeof fetch;
@@ -14,7 +14,7 @@ describe('getChannelByName function', () => {
   it('should fetch a channel by name', async () => {
     const mockConfig: PinataConfig = { pinata_jwt: 'test_jwt', pinata_gateway: "test.cloud" };
     const mockChannelName = 'pinata';
-    const mockResponse: ChannelResponse = {
+    const mockResponse = {
         data: {
             name: "pinata",
             url: "https://warpcast.com/~/channel/pinata",
@@ -35,7 +35,7 @@ describe('getChannelByName function', () => {
       json: jest.fn().mockResolvedValueOnce(mockResponse),
     });
 
-    const result: ChannelResponse = await getChannelByName(mockConfig, mockChannelName);
+    const result = await getChannelByName(mockConfig, mockChannelName);
 
     expect(global.fetch).toHaveBeenCalledWith(
       `https://api.pinata.cloud/v3/farcaster/channels/${mockChannelName}`,

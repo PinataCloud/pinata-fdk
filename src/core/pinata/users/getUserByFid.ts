@@ -1,10 +1,10 @@
 /**
  * This function fetches a specific Farcaster user by fid.
  * @param fid: The fid of the user to fetch.
- * @returns UserByFidResponse: The raw response from the Pinata Farcaster API.
+ * @returns User: The raw response from the Pinata Farcaster API.
  */
 
-import { PinataConfig, UserByFidResponse} from "../../types";
+import { PinataConfig, User} from "../../types";
 
 export const getUserByFid = async (
   fid: number, 
@@ -22,7 +22,7 @@ export const getUserByFid = async (
         },
     );
     const res = await request.json();
-    const resData: UserByFidResponse = res.data
+    const resData: User = res.data
     return resData
   } catch (error) {
     throw error;

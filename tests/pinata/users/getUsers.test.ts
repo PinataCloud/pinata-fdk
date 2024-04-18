@@ -1,5 +1,5 @@
 import { getUsers } from "../../../src/core/pinata/users/getUsers";
-import { PinataConfig, UsersResponse } from "../../../src";
+import { PinataConfig} from "../../../src";
 
 describe('getUsers function', () => {
   let originalFetch: typeof fetch;
@@ -13,7 +13,7 @@ describe('getUsers function', () => {
 
   it('should fetch users without page token', async () => {
     const mockConfig: PinataConfig = { pinata_jwt: 'test_jwt', pinata_gateway: "test.cloud" }
-    const mockResponse: UsersResponse = {
+    const mockResponse = {
         data: {
             users: [
                 {
@@ -55,7 +55,7 @@ describe('getUsers function', () => {
 
   it('should fetch users with page token', async () => {
     const mockConfig: PinataConfig = { pinata_jwt: 'test_jwt', pinata_gateway: "test.cloud" }
-    const mockResponse: UsersResponse = {
+    const mockResponse = {
         data: {
             users: [
                 {

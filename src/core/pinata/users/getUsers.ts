@@ -1,10 +1,10 @@
 /**
  * This function fetchs all Farcaster users.
  * @param pageToken: The page token to fetch the next page of users.
- * @returns UsersResponse: The raw response from the Pinata Farcaster API.
+ * @returns Users: The raw response from the Pinata Farcaster API.
  */
 
-import { PinataConfig, UsersResponse} from "../../types";
+import { PinataConfig, Users} from "../../types";
 
 export const getUsers = async (
   config: PinataConfig | undefined,
@@ -26,7 +26,7 @@ export const getUsers = async (
         },
     );
     const res = await request.json();
-    const resData: UsersResponse = res.data
+    const resData: Users = res.data
     return resData
   } catch (error) {
     throw error;

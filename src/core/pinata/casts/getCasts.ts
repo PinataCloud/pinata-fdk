@@ -1,10 +1,10 @@
 /**
  * This function fetchs all casts from the Pinata Farcaster API.
  * @param pageToken: The page token to fetch the next page of casts.
- * @returns CastsResponse: The raw response from the Pinata API.
+ * @returns Casts: The raw response from the Pinata API.
  */
 
-import { PinataConfig, CastsResponse } from "../../types";
+import { PinataConfig, Casts } from "../../types";
 
 export const getCasts = async (
   config: PinataConfig | undefined,
@@ -26,7 +26,7 @@ export const getCasts = async (
         },
     );
     const res = await request.json();
-    const resData: CastsResponse = res.data
+    const resData: Casts = res.data
     return resData
   } catch (error) {
     throw error;

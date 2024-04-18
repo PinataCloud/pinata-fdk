@@ -1,10 +1,10 @@
 /**
  * This function fetches a specific Farcaster channel by name.
  * @param name: The name of the channel to fetch.
- * @returns ChannelResponse: The raw response from the Pinata Farcaster API.
+ * @returns Channel: The raw response from the Pinata Farcaster API.
  */
 
-import { PinataConfig, ChannelResponse} from "../../types";
+import { PinataConfig, Channel} from "../../types";
 
 export const getChannelByName = async (
   config: PinataConfig | undefined,
@@ -22,7 +22,7 @@ export const getChannelByName = async (
         },
     );
     const res = await request.json();
-    const resData: ChannelResponse = res.data
+    const resData: Channel = res.data
     return resData
   } catch (error) {
     throw error;

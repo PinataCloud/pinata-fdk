@@ -1,6 +1,5 @@
 import { getChannels } from "../../../src/core/pinata/channels/getChannels";
 import { PinataConfig } from "../../../src";
-import { ChannelsResponse } from "../../../src";
 
 describe('getChannels function', () => {
   let originalFetch: typeof fetch;
@@ -14,7 +13,7 @@ describe('getChannels function', () => {
 
   it('should fetch channels without page token', async () => {
     const mockConfig: PinataConfig = { pinata_jwt: 'test_jwt', pinata_gateway: "test.cloud" }
-    const mockResponse: ChannelsResponse = {
+    const mockResponse = {
             data: {
                 channels: [
                     {
@@ -54,7 +53,7 @@ describe('getChannels function', () => {
 
   it('should fetch channels with page token', async () => {
     const mockConfig: PinataConfig = { pinata_jwt: 'test_jwt', pinata_gateway: "test.cloud" }
-    const mockResponse: ChannelsResponse = {
+    const mockResponse = {
         data: {
             channels: [
                 {
