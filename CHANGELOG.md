@@ -1,3 +1,12 @@
+# [3.9.0](https://github.com/PinataCloud/pinata-fdk/compare/3.8.2...3.9.0) (2024-04-18)
+
+
+### Bug Fixes
+
+* updates export types for read farcaster methods ([2e09c56](https://github.com/PinataCloud/pinata-fdk/commit/2e09c563d2363539cc86194b3d050391533d8d90))
+
+
+
 ## [3.8.2](https://github.com/PinataCloud/pinata-fdk/compare/3.8.1...3.8.2) (2024-04-18)
 
 
