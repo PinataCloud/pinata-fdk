@@ -181,11 +181,9 @@ export type CastBody = {
   embeds?: Embed[] | null;
 }
 
-export type UsersResponse = {
-  data: {
+export type Users = {
     users: User[];
     next_page_token: string;
-  }
 }
 
 export type User = {
@@ -202,20 +200,11 @@ export type User = {
   power_badge_user: boolean
 }
 
-export type CastsResponse = {
-  data: {
+export type Casts = {
     casts: Cast[];
     next_page_token: string;
-  }
 }
 
-export type CastByHashResponse = {
-  data: Cast;
-}
-
-export type UserByFidResponse = {
-  data: User;
-}
 
 export type Cast = {
         fid: number,
@@ -302,11 +291,9 @@ export type FollowUser = {
   signerId: string;
 }
 
-export type ChannelsFollowingResponse = {
-  data: {
+export type ChannelsFollowing = {
     channels: ChannelFollowing[];
     next_page_token: string;
-  }
 }
 
 export type ChannelFollowing = {
@@ -322,19 +309,15 @@ export type ChannelFollowing = {
 	followed_at: number;
 }
 
-export type ChannelFollowingStatusResponse = {
-  data: {
+export type ChannelFollowingStatus = {
     following: boolean;
     followed_at: number;
-  }
 }
 
 
-export type ChannelsResponse = {
-  data: {
+export type Channels = {
     channels: Channel[];
     next_page_token: string;
-  }
 }
 
 export type Channel = {
@@ -349,15 +332,9 @@ export type Channel = {
 	follower_count: number;   
 }
 
-export type ChannelResponse = { 
-  data: Channel;
-}
-
-export type  ChannelFollowersResponse = {
-  data: {
+export type  ChannelFollowers = {
     followers: Follower[];
     next_page_token: string;
-  }
 }
 
 export type Follower = {

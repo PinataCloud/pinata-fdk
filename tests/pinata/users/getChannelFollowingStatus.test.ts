@@ -1,4 +1,4 @@
-import { PinataConfig, ChannelFollowingStatusResponse } from "../../../src";
+import { PinataConfig } from "../../../src";
 import { getChannelsFollowingStatus } from "../../../src/core/pinata/users/getChannelFollowingStatus";
 
 describe('getChannelsFollowingStatus function', () => {
@@ -16,7 +16,7 @@ describe('getChannelsFollowingStatus function', () => {
     const fid = 1;
     const channelName = "pinata";
     const mockConfig: PinataConfig = { pinata_jwt: 'test_jwt', pinata_gateway: "test.cloud" };
-    const mockResponse: ChannelFollowingStatusResponse =   {
+    const mockResponse =   {
       data: {
         following: true,
         followed_at: 23425322

@@ -1,6 +1,5 @@
 import { getCasts } from "../../../src/core/pinata/casts/getCasts";
 import { PinataConfig } from "../../../src";
-import { CastsResponse } from "../../../src";
 
 describe('getCasts function', () => {
   let originalFetch: typeof fetch;
@@ -14,7 +13,7 @@ describe('getCasts function', () => {
 
   it('should fetch casts without page token', async () => {
     const mockConfig: PinataConfig = { pinata_jwt: 'test_jwt', pinata_gateway: "test.cloud" }
-    const mockResponse: CastsResponse = {
+    const mockResponse = {
         data: {
             casts: [
                 {
@@ -82,7 +81,7 @@ describe('getCasts function', () => {
 
   it('should fetch casts with page token', async () => {
     const mockConfig: PinataConfig = { pinata_jwt: 'test_jwt', pinata_gateway: "test.cloud" }
-    const mockResponse: CastsResponse = {
+    const mockResponse = {
       data: {
           casts: [
               {

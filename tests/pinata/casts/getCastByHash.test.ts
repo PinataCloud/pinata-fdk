@@ -1,5 +1,5 @@
 import { getCastByHash } from "../../../src/core/pinata/casts/getCastByHash";
-import { CastByHashResponse, PinataConfig } from "../../../src";
+import  { PinataConfig } from "../../../src";
 
 describe('getCastByHash function', () => {
   let originalFetch: typeof fetch;
@@ -14,7 +14,7 @@ describe('getCastByHash function', () => {
   it('should fetch a cast by hash', async () => {
     const mockConfig: PinataConfig = { pinata_jwt: 'test_jwt', pinata_gateway: "test.cloud" };
     const mockHash = '0x27ec7197ace4365b6004ae4f729c7b46cbc569e2a';
-    const mockResponse: CastByHashResponse = {
+    const mockResponse= {
         data: {
             "fid": 192,
             "hash": "0x27ec7197ace4365b6004ae4f729c7b46cbc569e2",
@@ -61,7 +61,7 @@ describe('getCastByHash function', () => {
       json: jest.fn().mockResolvedValueOnce(mockResponse),
     });
 
-    const result: CastByHashResponse = await getCastByHash(mockConfig, mockHash);
+    const result= await getCastByHash(mockConfig, mockHash);
 
     expect(global.fetch).toHaveBeenCalledWith(
       `https://api.pinata.cloud/v3/farcaster/casts/${mockHash}`,
@@ -73,6 +73,9 @@ describe('getCastByHash function', () => {
         },
       }
     );
+    console.log("result", result)
+    console.log("mockResponse", mockResponse.data)
+
     expect(result).toEqual(mockResponse.data);
   });
 
