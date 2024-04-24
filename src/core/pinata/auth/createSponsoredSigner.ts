@@ -56,7 +56,7 @@ export const createSponsoredSigner = async (config: PinataConfig | undefined) =>
         method: "POST",
         headers: {
           "Content-Type": "application/json",
-          Authorization: `Bearer ${process.env.PINATA_JWT}`,
+          Authorization: `Bearer ${config?.pinata_jwt}`,
         },
         body: JSON.stringify({
           signer_id: data.signer_uuid,
