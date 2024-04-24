@@ -1,3 +1,7 @@
+## [3.10.1](https://github.com/PinataCloud/pinata-fdk/compare/3.10.0...3.10.1) (2024-04-24)
+
+
+
 # [3.10.0](https://github.com/PinataCloud/pinata-fdk/compare/3.9.0...3.10.0) (2024-04-24)
 
 
