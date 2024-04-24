@@ -14,7 +14,7 @@
   "scripts": {
     "build": "tsup",
     "version": "conventional-changelog -p angular -i CHANGELOG.md -s -r 0 && git add CHANGELOG.md",
-    "postversion": "git push origin --all; git push origin",
+    "postversion": "git push origin --all; git push origin --tags",
     "postbuild": "cp src/pin.js dist/pin.js",
     "test": "jest",
     "prepare": "husky"
