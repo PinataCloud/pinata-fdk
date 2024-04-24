@@ -1,3 +1,12 @@
+# [3.10.0](https://github.com/PinataCloud/pinata-fdk/compare/3.9.0...3.10.0) (2024-04-24)
+
+
+### Bug Fixes
+
+* fixed bad naming convention for calling pinata_jwt in creating signer functions ([05f3571](https://github.com/PinataCloud/pinata-fdk/commit/05f3571471792aac4e54ce5b91b0f573db09224b))
+
+
+
 # [3.9.0](https://github.com/PinataCloud/pinata-fdk/compare/3.8.2...3.9.0) (2024-04-18)
 
 
