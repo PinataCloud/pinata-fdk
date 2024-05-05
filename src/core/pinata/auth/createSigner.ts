@@ -33,7 +33,7 @@ export const createSigner = async (config: PinataConfig | undefined) => {
       data: SignerInfo;
     } = signerInfo;
     const account = mnemonicToAccount(
-      process.env.FARCASTER_DEVELOPER_MNEMONIC!,
+      config?.app_mnemonic!,
     );
 
     const deadline = Math.floor(Date.now() / 1000) + 86400; // signature is valid for 1 day
